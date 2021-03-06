@@ -83,8 +83,6 @@ glad/glad.h
 -
 GLFW/glfw3.h
 -
-GL/glut.h
--
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
