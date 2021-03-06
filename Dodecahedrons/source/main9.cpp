@@ -11,20 +11,14 @@
 #include "shader.h"
 
 #include <iostream>
-#include <bits/stdc++.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
-const float radius = 3.0;
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
-glm::vec3 modelOffset       = glm::vec3(0.0f, 0.0f,  0.0f);
-glm::vec3 modelPosition     = glm::vec3(0.0f, 0.0f,  0.0f);
-float RotationOffset    = 0;
-float CameraAngle    = 0;
-bool flag = 0;
+glm::vec3 model_pos   = glm::vec3(0.0f, 0.0f,  0.0f);
 
 float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
@@ -73,6 +67,22 @@ float vertices[] = {
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+// void AdjustVertexData()
+// {
+//     std::vector<float> fNewData(ARRAY_COUNT(vertex));
+//     memcpy(&fNewData[0], vertex, sizeof(vertex));
+    
+//     for(int iVertex = 0; iVertex < ARRAY_COUNT(vertex); iVertex += 4)
+//     {
+//         fNewData[iVertex] += fXOffset;
+//         fNewData[iVertex + 1] += fYOffset;
+//     }
+    
+//     glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
+//     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertex), &fNewData[0]);
+//     glBindBuffer(GL_ARRAY_BUFFER, 0);
+// }
 
 int main()
 {
@@ -203,7 +213,7 @@ int main()
     ourShader.setMat4("projection", projection);
     ourShader.setMat4("model", model);
 
-    // modelOffset = new ModelMatrix();
+    // model_pos = new ModelMatrix();
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -232,52 +242,10 @@ int main()
         // glm::mat4 projection    = glm::mat4(1.0f);
         
         // model = glm::rotate(model, (float)0, glm::vec3(0.5f, 1.0f, 0.0f));
-        
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-        if(CameraAngle!=0)
-        {
-            float camX = radius * sin(CameraAngle);
-            float camZ = radius * cos(CameraAngle);
-            view = glm::lookAt(glm::vec3(camX, 0.0, camZ), modelPosition, cameraUp);
-        }
         ourShader.setMat4("view", view);
 
-        if(flag==1)
-        {
-            for(int iVertex = 0; iVertex < sizeof(vertices); iVertex += 6)
-            {
-                vertices[iVertex] += modelOffset[0];
-                vertices[iVertex + 1] += modelOffset[1];
-                vertices[iVertex + 2] += modelOffset[2];
-                float x = vertices[iVertex];
-                float y = vertices[iVertex+1];
-                vertices[iVertex] = x*cos(RotationOffset) - y*sin(RotationOffset);
-                vertices[iVertex+1] = x*sin(RotationOffset) + y*cos(RotationOffset);
-            }
-            // std::cout<<RotationOffset<<" ";
-            glBindBuffer(GL_ARRAY_BUFFER, VBO);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-            flag = 0;
-            modelPosition += modelOffset;
-            modelOffset = glm::vec3(0.0f, 0.0f, 0.0f);
-            RotationOffset = 0;
-        }
-        // else if (flag==2)
-        // {
-        //     for(int iVertex = 0; iVertex < sizeof(vertices); iVertex += 6)
-        //     {
-        //         float x = vertices[iVertex];
-        //         float y = vertices[iVertex+1];
-        //         vertices[iVertex] = x*cos(RotationOffset) - y*sin(RotationOffset);
-        //         vertices[iVertex+1] = x*sin(RotationOffset) + y*cos(RotationOffset);
-        //         std::cout<<vertices[iVertex]<<" ";
-        //     }
-        //     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        //     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-        //     flag=0;
-        //     RotationOffset = 0;
-        // }
-        // model = modelOffset;
+        // model = model_pos;
         // ourShader.setMat4("model", model);
 
         // retrieve the matrix uniform locations
@@ -318,54 +286,21 @@ void processInput(GLFWwindow *window)
 
     const float cameraSpeed = 0.05f; // adjust accordingly
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        {cameraPos += cameraSpeed * cameraFront;CameraAngle=0;}
+        cameraPos += cameraSpeed * cameraFront;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        {cameraPos -= cameraSpeed * cameraFront;CameraAngle=0;}
+        cameraPos -= cameraSpeed * cameraFront;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        {cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;CameraAngle=0;}
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        {cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;CameraAngle=0;}
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-        {cameraPos += cameraUp * cameraSpeed;CameraAngle=0;}
+        cameraPos += cameraUp * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-        {cameraPos -= cameraUp * cameraSpeed;CameraAngle=0;}
+        cameraPos -= cameraUp * cameraSpeed;
 
-    const float objectSpeed = 0.01f; // adjust accordingly
-    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS){
-        modelOffset += glm::vec3(1.0f, 0.0f, 0.0f) * objectSpeed;
-        flag=1;
-    }
-    if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS){
-        modelOffset -= glm::vec3(1.0f, 0.0f, 0.0f) * objectSpeed;
-        flag=1;
-    }
-    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS){
-        modelOffset += glm::vec3(0.0f, 1.0f, 0.0f) * objectSpeed;
-        flag=1;
-    }
-    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS){
-        modelOffset -= glm::vec3(0.0f, 1.0f, 0.0f) * objectSpeed;
-        flag=1;
-    }
-    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS){
-        modelOffset += glm::vec3(0.0f, 0.0f, 1.0f) * objectSpeed;
-        flag=1;
-    }
-    if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS){
-        modelOffset -= glm::vec3(0.0f, 0.0f, 1.0f) * objectSpeed;
-        flag=1;
-    }
-
-    const float rotationSpeed = 0.1f;
-    if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS){
-        RotationOffset += rotationSpeed;
-        flag=2;
-    }
-
-    const float revolutionSpeed = 0.1f;
-    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS){
-        CameraAngle += revolutionSpeed;
-    }
+    const float objectSpeed = 0.05f; // adjust accordingly
+    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+        model_pos += glm::vec3(0.0f, 0.0f, 1.0f) * objectSpeed;
 
 }
 

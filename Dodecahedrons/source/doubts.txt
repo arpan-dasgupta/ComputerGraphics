@@ -1,0 +1,2 @@
+1. move an object then rotate it.. does it rotate about its a coordinate axis or its own axis.
+2. move an object/camera, then rotate camera about the object, what should happen?

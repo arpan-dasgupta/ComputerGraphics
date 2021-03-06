@@ -93,6 +93,8 @@ shader.h
 /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/shader.h
 iostream
 -
+bits/stdc++.h
+-
 
 /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/shader.h
 glad/glad.h
