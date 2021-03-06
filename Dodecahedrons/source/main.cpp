@@ -24,7 +24,7 @@ glm::vec3 modelOffset       = glm::vec3(0.0f, 0.0f,  0.0f);
 glm::vec3 modelPosition     = glm::vec3(0.0f, 0.0f,  0.0f);
 float RotationOffset    = 0;
 float CameraAngle    = 0;
-bool flag = 0;
+bool flag = 0, flag2 = 0;
 
 float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
@@ -240,6 +240,11 @@ int main()
             float camZ = radius * cos(CameraAngle);
             view = glm::lookAt(glm::vec3(camX, 0.0, camZ), modelPosition, cameraUp);
         }
+        if(flag2==1)
+        {
+            view = glm::lookAt(cameraPos, modelPosition, cameraUp);
+            flag2 = 0;
+        }
         ourShader.setMat4("view", view);
 
         if(flag==1)
@@ -359,7 +364,7 @@ void processInput(GLFWwindow *window)
     const float rotationSpeed = 0.1f;
     if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS){
         RotationOffset += rotationSpeed;
-        flag=2;
+        flag=1;
     }
 
     const float revolutionSpeed = 0.1f;
@@ -367,6 +372,24 @@ void processInput(GLFWwindow *window)
         CameraAngle += revolutionSpeed;
     }
 
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS){
+        cameraPos = glm::vec3(3.0f, 0.0f,  0.0f);
+        cameraUp = glm::vec3(0.0f, 1.0f,  0.0f);
+        cameraFront = modelPosition - cameraPos;
+        flag2=1;
+    }
+    if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS){
+        cameraPos = glm::vec3(0.0f, 3.0f,  0.0f);
+        cameraUp = glm::vec3(0.0f, 0.0f,  1.0f);
+        cameraFront = modelPosition - cameraPos;
+        flag2=1;
+    }
+    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS){
+        cameraPos = glm::vec3(1.0f, 1.0f,  1.0f);
+        cameraUp = glm::vec3(0.0f, 1.0f,  0.0f);
+        cameraFront = modelPosition - cameraPos;
+        flag2=1;
+    }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
