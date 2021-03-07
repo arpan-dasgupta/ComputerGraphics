@@ -78,6 +78,8 @@ GL/gl.h
 GL/glext.h
 -
 
+/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/decagonalPrism.h
+
 /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/main.cpp
 glad/glad.h
 -
@@ -91,6 +93,8 @@ glm/gtc/type_ptr.hpp
 -
 shader.h
 /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/shader.h
+decagonalPrism.h
+/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/decagonalPrism.h
 iostream
 -
 bits/stdc++.h
