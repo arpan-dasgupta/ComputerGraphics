@@ -5,6 +5,6 @@ CMakeFiles/Dodecahedrons.dir/source/main.cpp.o
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
  ../libraries/glfw/include/GLFW/glfw3.h
- /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/decagonalPrism.h
+ /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/dodecahedron.h
  /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/main.cpp
  /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/shader.h

@@ -9,7 +9,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "shader.h"
-#include "decagonalPrism.h"
+// #include "decagonalPrism.h"
+#include "dodecahedron.h"
 
 #include <iostream>
 #include <bits/stdc++.h>
@@ -408,7 +409,7 @@ int main()
 
         // render box
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 38 * 3);
+        glDrawArrays(GL_TRIANGLES, 0, triangleCount * 3);
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
