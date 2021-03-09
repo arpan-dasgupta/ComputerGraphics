@@ -78,7 +78,7 @@ GL/gl.h
 GL/glext.h
 -
 
-/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/greatDodecahedron.h
+/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/dodecahedron.h
 
 /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/main.cpp
 glad/glad.h
@@ -93,8 +93,8 @@ glm/gtc/type_ptr.hpp
 -
 shader.h
 /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/shader.h
-greatDodecahedron.h
-/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/greatDodecahedron.h
+dodecahedron.h
+/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/dodecahedron.h
 iostream
 -
 bits/stdc++.h
