@@ -4,7 +4,8 @@
 CMakeFiles/Dodecahedrons.dir/source/main.cpp.o: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/Dodecahedrons.dir/source/main.cpp.o: ../libraries/glad/include/glad/glad.h
 CMakeFiles/Dodecahedrons.dir/source/main.cpp.o: ../libraries/glfw/include/GLFW/glfw3.h
-CMakeFiles/Dodecahedrons.dir/source/main.cpp.o: ../source/dodecahedron.h
+CMakeFiles/Dodecahedrons.dir/source/main.cpp.o: ../source/dpTexture.h
 CMakeFiles/Dodecahedrons.dir/source/main.cpp.o: ../source/main.cpp
 CMakeFiles/Dodecahedrons.dir/source/main.cpp.o: ../source/shader.h
+CMakeFiles/Dodecahedrons.dir/source/main.cpp.o: ../source/stb_image.h
 
