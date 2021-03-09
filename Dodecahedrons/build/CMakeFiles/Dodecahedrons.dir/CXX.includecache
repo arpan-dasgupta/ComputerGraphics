@@ -78,7 +78,7 @@ GL/gl.h
 GL/glext.h
 -
 
-/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/dpTexture.h
+/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/dpTextureCheems.h
 
 /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/main.cpp
 glad/glad.h
@@ -95,8 +95,8 @@ glm/gtc/type_ptr.hpp
 -
 shader.h
 /home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/shader.h
-dpTexture.h
-/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/dpTexture.h
+dpTextureCheems.h
+/home/arpan/Documents/ComputerGraphics/Dodecahedrons/source/dpTextureCheems.h
 iostream
 -
 bits/stdc++.h

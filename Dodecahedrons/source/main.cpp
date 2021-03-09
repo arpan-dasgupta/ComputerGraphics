@@ -11,7 +11,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "shader.h"
-#include "dpTexture.h"
+// #include "dpTexture.h"
+#include "dpTextureCheems.h"
 // #include "decagonalPrism.h"
 // #include "dodecahedron.h"
 // #include "greatDodecahedron.h"
@@ -114,8 +115,8 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load and generate the texture
     int width, height, nrChannels;
-    // unsigned char *data = stbi_load("../source/texture3.jpg", &width, &height, &nrChannels, 0);
-    unsigned char *data = stbi_load("../source/background-textures.png", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load("../source/cheems.jpg", &width, &height, &nrChannels, 0);
+    // unsigned char *data = stbi_load("../source/background-textures.png", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -245,7 +246,7 @@ int main()
 
         if(flag==1)
         {
-            std::cout<<"ye ";
+            // std::cout<<"ye ";
             glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
             transform = glm::translate(model,modelOffset);
             transform = glm::rotate(transform, RotationOffset, glm::vec3(0.0f, 0.0f, 1.0f));

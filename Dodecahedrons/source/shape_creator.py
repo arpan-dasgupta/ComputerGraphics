@@ -52,7 +52,7 @@ def generate1():
 
 def generate4():
     count=0
-    print("#ifndef __decagonalPrism_h__\n#define __decagonalPrism_h__")
+    print("#ifndef __dpTexture_h__\n#define __dpTexture_h__")
     print("extern float vertices[] = {")
     for side in shape_sides:
         color1 = "0.0f,  0.0f, "
@@ -70,6 +70,35 @@ def generate4():
                 print(vertices[side[i]]+color1)
                 print(vertices[side[i+1]]+color2)
                 print(vertices[side[n-1]]+color3)
+                count+=1
+                print()
+        print()
+    print("};\nextern int triangleCount = "+ str(count)+";\n#endif")
+
+def generate5():
+    count=0
+    print("#ifndef __dpTextureCheems_h__\n#define __dpTextureCheems_h__")
+    print("extern float vertices[] = {")
+    for side in shape_sides:
+        n = len(side)
+        texture = []
+        theta = 2*math.pi/n
+        for i in range(n):
+            xx = (0.5 + 0.5 * math.sin(i*theta))
+            yy = (0.5 + 0.5 * math.cos(i*theta))
+            texture.append(str(xx)+"f, "+str(yy)+"f, ")
+
+        if n==3:
+            print(vertices[side[0]]+texture[0])
+            print(vertices[side[1]]+texture[1])
+            print(vertices[side[2]]+texture[2])
+            count+=1
+            print()
+        else:
+            for i in range(n-2):
+                print(vertices[side[i]]+texture[i])
+                print(vertices[side[i+1]]+texture[i+1])
+                print(vertices[side[n-1]]+texture[n-1])
                 count+=1
                 print()
         print()
@@ -179,4 +208,5 @@ if __name__=="__main__":
     # generate1()
     # generate2()
     # generate3()
-    generate4()
+    # generate4()
+    generate5()
