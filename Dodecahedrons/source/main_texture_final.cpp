@@ -403,6 +403,13 @@ void processInput(GLFWwindow *window)
         cameraFront = origin - cameraPos;
         flag2=1;
     }
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS){
+        cameraPos = glm::vec3(0.0f, 0.0f,  3.0f);
+        cameraUp = glm::vec3(0.0f, 1.0f,  0.0f);
+        cameraFront = origin - cameraPos;
+        revolutionOffset = 0;
+        flag2=1;
+    }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
