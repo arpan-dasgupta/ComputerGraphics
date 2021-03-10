@@ -115,8 +115,8 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load and generate the texture
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("../source/cheems.jpg", &width, &height, &nrChannels, 0);
-    // unsigned char *data = stbi_load("../source/background-textures.png", &width, &height, &nrChannels, 0);
+    // unsigned char *data = stbi_load("../source/cheems.jpg", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load("../source/background-textures.png", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -249,11 +249,12 @@ int main()
             // std::cout<<"ye ";
             glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
             transform = glm::translate(model,modelOffset);
-            transform = glm::rotate(transform, RotationOffset, glm::vec3(0.0f, 0.0f, 1.0f));
+            model = glm::rotate(transform, RotationOffset, glm::vec3(0.0f, 0.0f, 1.0f));
             // unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
             // glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
-            ourShader.setMat4("model",transform);
-            // modelOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+            ourShader.setMat4("model",model);
+            modelOffset = glm::vec3(0.0f, 0.0f, 0.0f);
+            RotationOffset=0;
             flag = 0;
         }
         
