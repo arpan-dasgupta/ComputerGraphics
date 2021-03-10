@@ -9,9 +9,10 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "shader.h"
+
 // #include "decagonalPrism.h"
-#include "dodecahedron.h"
-// #include "greatDodecahedron.h"
+// #include "dodecahedron.h"
+#include "greatDodecahedron.h"
 
 #include <iostream>
 #include <bits/stdc++.h>

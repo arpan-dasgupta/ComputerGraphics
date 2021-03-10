@@ -11,8 +11,10 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "shader.h"
+
 #include "dpTexture.h"
 // #include "dpTextureCheems.h"
+
 // #include "decagonalPrism.h"
 // #include "dodecahedron.h"
 // #include "greatDodecahedron.h"
@@ -115,8 +117,10 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load and generate the texture
     int width, height, nrChannels;
+
     // unsigned char *data = stbi_load("../source/cheems.jpg", &width, &height, &nrChannels, 0);
     unsigned char *data = stbi_load("../source/background-textures.png", &width, &height, &nrChannels, 0);
+    
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -127,57 +131,6 @@ int main()
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
-
-    // // load and create a texture 
-    // // -------------------------
-    // unsigned int texture1, texture2;
-    // // texture 1
-    // // ---------
-    // glGenTextures(1, &texture1);
-    // glBindTexture(GL_TEXTURE_2D, texture1);
-    // // set the texture wrapping parameters
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // // set texture filtering parameters
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // // load image, create texture and generate mipmaps
-    // int width, height, nrChannels;
-    // stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
-    // if (data)
-    // {
-    //     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-    //     glGenerateMipmap(GL_TEXTURE_2D);
-    // }
-    // else
-    // {
-    //     std::cout << "Failed to load texture" << std::endl;
-    // }
-    // stbi_image_free(data);
-    // // texture 2
-    // // ---------
-    // glGenTextures(1, &texture2);
-    // glBindTexture(GL_TEXTURE_2D, texture2);
-    // // set the texture wrapping parameters
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // // set texture filtering parameters
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // // load image, create texture and generate mipmaps
-    // data = stbi_load(FileSystem::getPath("resources/textures/awesomeface.png").c_str(), &width, &height, &nrChannels, 0);
-    // if (data)
-    // {
-    //     // note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
-    //     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    //     glGenerateMipmap(GL_TEXTURE_2D);
-    // }
-    // else
-    // {
-    //     std::cout << "Failed to load texture" << std::endl;
-    // }
-    // stbi_image_free(data);
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
@@ -205,22 +158,9 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // also clear the depth buffer now!
         glBindTexture(GL_TEXTURE_2D, texture);
 
-        // // bind textures on corresponding texture units
-        // glActiveTexture(GL_TEXTURE0);
-        // glBindTexture(GL_TEXTURE_2D, texture1);
-        // glActiveTexture(GL_TEXTURE1);
-        // glBindTexture(GL_TEXTURE_2D, texture2);
-
         // activate shader
         ourShader.use();
 
-        // create transformations
-        // glm::mat4 view          = glm::mat4(1.0f);
-        // glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-        // glm::mat4 projection    = glm::mat4(1.0f);
-        
-        // model = glm::rotate(model, (float)0, glm::vec3(0.5f, 1.0f, 0.0f));
-        
         if(revolutionOffset!=0)
         {
             // radius = sqrt(pow(cameraPos[0],2)+pow(cameraPos[1],2)+pow(cameraPos[2],2));
@@ -258,52 +198,6 @@ int main()
             flag = 0;
         }
         
-
-        // if(flag>=1)
-        // {
-        //     std::cout<<"ye ";
-            // for(int iVertex = 0; iVertex < sizeof(vertices); iVertex += 6)
-            // {
-            //     vertices[iVertex] += modelOffset[0];
-            //     vertices[iVertex + 1] += modelOffset[1];
-            //     vertices[iVertex + 2] += modelOffset[2];
-            //     float x = vertices[iVertex];
-            //     float y = vertices[iVertex+1];
-            //     vertices[iVertex] = x*cos(RotationOffset) - y*sin(RotationOffset);
-            //     vertices[iVertex+1] = x*sin(RotationOffset) + y*cos(RotationOffset);
-            // }
-            // // std::cout<<RotationOffset<<" ";
-            // glBindBuffer(GL_ARRAY_BUFFER, VBO);
-            // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-            // flag = 0;
-            // // modelPosition += modelOffset;
-            // modelOffset = glm::vec3(0.0f, 0.0f, 0.0f);
-            // RotationOffset = 0;
-        // }
-        // else if (flag==2)
-        // {
-        //     for(int iVertex = 0; iVertex < sizeof(vertices); iVertex += 6)
-        //     {
-        //         float x = vertices[iVertex];
-        //         float y = vertices[iVertex+1];
-        //         vertices[iVertex] = x*cos(RotationOffset) - y*sin(RotationOffset);
-        //         vertices[iVertex+1] = x*sin(RotationOffset) + y*cos(RotationOffset);
-        //         std::cout<<vertices[iVertex]<<" ";
-        //     }
-        //     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        //     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-        //     flag=0;
-        //     RotationOffset = 0;
-        // }
-        // model = modelOffset;
-        // ourShader.setMat4("model", model);
-
-        // retrieve the matrix uniform locations
-        // unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
-        // unsigned int viewLoc  = glGetUniformLocation(ourShader.ID, "view");
-        // pass them to the shaders (3 different ways)
-        // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        // glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
 
         // render box
         glBindVertexArray(VAO);
