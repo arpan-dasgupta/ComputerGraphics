@@ -1,7 +1,7 @@
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/rebuild_cache.dir
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/edit_cache.dir
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/glad.dir
-/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/Dodecahedrons.dir
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/libraries/glfw/CMakeFiles/rebuild_cache.dir
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/libraries/glfw/CMakeFiles/edit_cache.dir
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/libraries/glfw/src/CMakeFiles/rebuild_cache.dir

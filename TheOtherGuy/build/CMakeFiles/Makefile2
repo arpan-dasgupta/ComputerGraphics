@@ -73,7 +73,7 @@ CMAKE_BINARY_DIR = /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build
 
 # The main recursive "all" target.
 all: CMakeFiles/glad.dir/all
-all: CMakeFiles/Dodecahedrons.dir/all
+all: CMakeFiles/TheOtherGuy.dir/all
 all: libraries/glfw/all
 
 .PHONY : all
@@ -85,7 +85,7 @@ preinstall: libraries/glfw/preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/glad.dir/clean
-clean: CMakeFiles/Dodecahedrons.dir/clean
+clean: CMakeFiles/TheOtherGuy.dir/clean
 clean: libraries/glfw/clean
 
 .PHONY : clean
@@ -154,32 +154,32 @@ CMakeFiles/glad.dir/clean:
 .PHONY : CMakeFiles/glad.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Dodecahedrons.dir
+# Target rules for target CMakeFiles/TheOtherGuy.dir
 
 # All Build rule for target.
-CMakeFiles/Dodecahedrons.dir/all: CMakeFiles/glad.dir/all
-CMakeFiles/Dodecahedrons.dir/all: libraries/glfw/src/CMakeFiles/glfw.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dodecahedrons.dir/build.make CMakeFiles/Dodecahedrons.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dodecahedrons.dir/build.make CMakeFiles/Dodecahedrons.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=1,2 "Built target Dodecahedrons"
-.PHONY : CMakeFiles/Dodecahedrons.dir/all
+CMakeFiles/TheOtherGuy.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/TheOtherGuy.dir/all: libraries/glfw/src/CMakeFiles/glfw.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=1,2 "Built target TheOtherGuy"
+.PHONY : CMakeFiles/TheOtherGuy.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Dodecahedrons.dir/rule: cmake_check_build_system
+CMakeFiles/TheOtherGuy.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles 21
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Dodecahedrons.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/TheOtherGuy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles 0
-.PHONY : CMakeFiles/Dodecahedrons.dir/rule
+.PHONY : CMakeFiles/TheOtherGuy.dir/rule
 
 # Convenience name for target.
-Dodecahedrons: CMakeFiles/Dodecahedrons.dir/rule
+TheOtherGuy: CMakeFiles/TheOtherGuy.dir/rule
 
-.PHONY : Dodecahedrons
+.PHONY : TheOtherGuy
 
 # clean rule for target.
-CMakeFiles/Dodecahedrons.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Dodecahedrons.dir/build.make CMakeFiles/Dodecahedrons.dir/clean
-.PHONY : CMakeFiles/Dodecahedrons.dir/clean
+CMakeFiles/TheOtherGuy.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/clean
+.PHONY : CMakeFiles/TheOtherGuy.dir/clean
 
 #=============================================================================
 # Target rules for target libraries/glfw/src/CMakeFiles/glfw.dir
