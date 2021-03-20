@@ -14,8 +14,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "game_level.h"
-#include "power_up.h"
+#include "maze.h"
+// #include "power_up.h"
 
 // Represents the current state of the game
 enum GameState {
@@ -34,10 +34,10 @@ enum Direction {
 // Defines a Collision typedef that represents collision data
 typedef std::tuple<bool, Direction, glm::vec2> Collision; // <collision?, what direction?, difference vector center - closest point>
 
-// Initial size of the player paddle
-const glm::vec2 PLAYER_SIZE(100.0f, 20.0f);
-// Initial velocity of the player paddle
-const float PLAYER_VELOCITY(500.0f);
+// Initial size of the player
+const glm::vec2 PLAYER_SIZE(50.0f, 80.0f);
+// Initial velocity of the maze
+const float MAZE_VELOCITY(500.0f);
 // Initial velocity of the Ball
 const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
 // Radius of the ball object
@@ -54,8 +54,8 @@ public:
     bool                    Keys[1024];
     bool                    KeysProcessed[1024];
     unsigned int            Width, Height;
-    std::vector<GameLevel>  Levels;
-    std::vector<PowerUp>    PowerUps;
+    Maze                    maze;
+    // std::vector<PowerUp>    PowerUps;
     unsigned int            Level;
     unsigned int            Lives;
     // constructor/destructor
@@ -67,13 +67,13 @@ public:
     void ProcessInput(float dt);
     void Update(float dt);
     void Render();
-    void DoCollisions();
-    // reset
-    void ResetLevel();
-    void ResetPlayer();
-    // powerups
-    void SpawnPowerUps(GameObject &block);
-    void UpdatePowerUps(float dt);
+    // void DoCollisions();
+    // // reset
+    // void ResetLevel();
+    // void ResetPlayer();
+    // // powerups
+    // void SpawnPowerUps(GameObject &block);
+    // void UpdatePowerUps(float dt);
 };
 
 #endif

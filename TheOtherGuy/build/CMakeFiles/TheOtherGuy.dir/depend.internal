@@ -5,5 +5,11 @@ CMakeFiles/TheOtherGuy.dir/source/main.cpp.o
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
  ../libraries/glfw/include/GLFW/glfw3.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/main.cpp
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h

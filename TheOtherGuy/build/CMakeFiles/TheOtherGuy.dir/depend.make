@@ -4,6 +4,12 @@
 CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../libraries/glad/include/glad/glad.h
 CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../libraries/glfw/include/GLFW/glfw3.h
+CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../source/game.h
+CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../source/game_object.h
 CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../source/main.cpp
+CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../source/maze.h
+CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../source/resource_manager.h
 CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../source/shader.h
+CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../source/sprite_renderer.h
+CMakeFiles/TheOtherGuy.dir/source/main.cpp.o: ../source/texture.h
 
