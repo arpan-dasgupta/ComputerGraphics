@@ -195,6 +195,60 @@ libraries/glad/src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/libraries/glad/src/glad.c.s
 .PHONY : libraries/glad/src/glad.c.s
 
+source/game.o: source/game.cpp.o
+
+.PHONY : source/game.o
+
+# target to build an object file
+source/game.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/game.cpp.o
+.PHONY : source/game.cpp.o
+
+source/game.i: source/game.cpp.i
+
+.PHONY : source/game.i
+
+# target to preprocess a source file
+source/game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/game.cpp.i
+.PHONY : source/game.cpp.i
+
+source/game.s: source/game.cpp.s
+
+.PHONY : source/game.s
+
+# target to generate assembly for a file
+source/game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/game.cpp.s
+.PHONY : source/game.cpp.s
+
+source/game_object.o: source/game_object.cpp.o
+
+.PHONY : source/game_object.o
+
+# target to build an object file
+source/game_object.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.o
+.PHONY : source/game_object.cpp.o
+
+source/game_object.i: source/game_object.cpp.i
+
+.PHONY : source/game_object.i
+
+# target to preprocess a source file
+source/game_object.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.i
+.PHONY : source/game_object.cpp.i
+
+source/game_object.s: source/game_object.cpp.s
+
+.PHONY : source/game_object.s
+
+# target to generate assembly for a file
+source/game_object.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.s
+.PHONY : source/game_object.cpp.s
+
 source/main.o: source/main.cpp.o
 
 .PHONY : source/main.o
@@ -222,6 +276,168 @@ source/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/main.cpp.s
 .PHONY : source/main.cpp.s
 
+source/maze.o: source/maze.cpp.o
+
+.PHONY : source/maze.o
+
+# target to build an object file
+source/maze.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o
+.PHONY : source/maze.cpp.o
+
+source/maze.i: source/maze.cpp.i
+
+.PHONY : source/maze.i
+
+# target to preprocess a source file
+source/maze.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/maze.cpp.i
+.PHONY : source/maze.cpp.i
+
+source/maze.s: source/maze.cpp.s
+
+.PHONY : source/maze.s
+
+# target to generate assembly for a file
+source/maze.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/maze.cpp.s
+.PHONY : source/maze.cpp.s
+
+source/resource_manager.o: source/resource_manager.cpp.o
+
+.PHONY : source/resource_manager.o
+
+# target to build an object file
+source/resource_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o
+.PHONY : source/resource_manager.cpp.o
+
+source/resource_manager.i: source/resource_manager.cpp.i
+
+.PHONY : source/resource_manager.i
+
+# target to preprocess a source file
+source/resource_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.i
+.PHONY : source/resource_manager.cpp.i
+
+source/resource_manager.s: source/resource_manager.cpp.s
+
+.PHONY : source/resource_manager.s
+
+# target to generate assembly for a file
+source/resource_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.s
+.PHONY : source/resource_manager.cpp.s
+
+source/shader.o: source/shader.cpp.o
+
+.PHONY : source/shader.o
+
+# target to build an object file
+source/shader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o
+.PHONY : source/shader.cpp.o
+
+source/shader.i: source/shader.cpp.i
+
+.PHONY : source/shader.i
+
+# target to preprocess a source file
+source/shader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/shader.cpp.i
+.PHONY : source/shader.cpp.i
+
+source/shader.s: source/shader.cpp.s
+
+.PHONY : source/shader.s
+
+# target to generate assembly for a file
+source/shader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/shader.cpp.s
+.PHONY : source/shader.cpp.s
+
+source/sprite_renderer.o: source/sprite_renderer.cpp.o
+
+.PHONY : source/sprite_renderer.o
+
+# target to build an object file
+source/sprite_renderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o
+.PHONY : source/sprite_renderer.cpp.o
+
+source/sprite_renderer.i: source/sprite_renderer.cpp.i
+
+.PHONY : source/sprite_renderer.i
+
+# target to preprocess a source file
+source/sprite_renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.i
+.PHONY : source/sprite_renderer.cpp.i
+
+source/sprite_renderer.s: source/sprite_renderer.cpp.s
+
+.PHONY : source/sprite_renderer.s
+
+# target to generate assembly for a file
+source/sprite_renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.s
+.PHONY : source/sprite_renderer.cpp.s
+
+source/stb_image.o: source/stb_image.cpp.o
+
+.PHONY : source/stb_image.o
+
+# target to build an object file
+source/stb_image.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o
+.PHONY : source/stb_image.cpp.o
+
+source/stb_image.i: source/stb_image.cpp.i
+
+.PHONY : source/stb_image.i
+
+# target to preprocess a source file
+source/stb_image.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.i
+.PHONY : source/stb_image.cpp.i
+
+source/stb_image.s: source/stb_image.cpp.s
+
+.PHONY : source/stb_image.s
+
+# target to generate assembly for a file
+source/stb_image.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.s
+.PHONY : source/stb_image.cpp.s
+
+source/texture.o: source/texture.cpp.o
+
+.PHONY : source/texture.o
+
+# target to build an object file
+source/texture.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o
+.PHONY : source/texture.cpp.o
+
+source/texture.i: source/texture.cpp.i
+
+.PHONY : source/texture.i
+
+# target to preprocess a source file
+source/texture.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/texture.cpp.i
+.PHONY : source/texture.cpp.i
+
+source/texture.s: source/texture.cpp.s
+
+.PHONY : source/texture.s
+
+# target to generate assembly for a file
+source/texture.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/texture.cpp.s
+.PHONY : source/texture.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -236,9 +452,33 @@ help:
 	@echo "... libraries/glad/src/glad.o"
 	@echo "... libraries/glad/src/glad.i"
 	@echo "... libraries/glad/src/glad.s"
+	@echo "... source/game.o"
+	@echo "... source/game.i"
+	@echo "... source/game.s"
+	@echo "... source/game_object.o"
+	@echo "... source/game_object.i"
+	@echo "... source/game_object.s"
 	@echo "... source/main.o"
 	@echo "... source/main.i"
 	@echo "... source/main.s"
+	@echo "... source/maze.o"
+	@echo "... source/maze.i"
+	@echo "... source/maze.s"
+	@echo "... source/resource_manager.o"
+	@echo "... source/resource_manager.i"
+	@echo "... source/resource_manager.s"
+	@echo "... source/shader.o"
+	@echo "... source/shader.i"
+	@echo "... source/shader.s"
+	@echo "... source/sprite_renderer.o"
+	@echo "... source/sprite_renderer.i"
+	@echo "... source/sprite_renderer.s"
+	@echo "... source/stb_image.o"
+	@echo "... source/stb_image.i"
+	@echo "... source/stb_image.s"
+	@echo "... source/texture.o"
+	@echo "... source/texture.i"
+	@echo "... source/texture.s"
 .PHONY : help
 
 

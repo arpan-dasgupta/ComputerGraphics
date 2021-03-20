@@ -10,10 +10,10 @@
 #include <sstream>
 #include <iostream>
 
-#include <learnopengl/filesystem.h>
+// #include <learnopengl/filesystem.h>
 
-#include <irrklang/irrKlang.h>
-using namespace irrklang;
+// #include <irrklang/irrKlang.h>
+// using namespace irrklang;
 
 #include "game.h"
 #include "maze.h"
@@ -29,17 +29,18 @@ using namespace irrklang;
 // Game-related State data
 SpriteRenderer    *Renderer;
 GameObject        *Player;
-BallObject        *Ball;
-ParticleGenerator *Particles;
-PostProcessor     *Effects;
-ISoundEngine      *SoundEngine = createIrrKlangDevice();
-TextRenderer      *Text;
+Maze              *maze;
+// BallObject        *Ball;
+// ParticleGenerator *Particles;
+// PostProcessor     *Effects;
+// ISoundEngine      *SoundEngine = createIrrKlangDevice();
+// TextRenderer      *Text;
 
 float ShakeTime = 0.0f;
 
 
 Game::Game(unsigned int width, unsigned int height) 
-    : State(GAME_MENU), Keys(), KeysProcessed(), Width(width), Height(height), Level(0), Lives(3)
+    : State(GAME_ACTIVE), Keys(), KeysProcessed(), Width(width), Height(height), Level(0), Lives(3)
 { 
 
 }
@@ -48,17 +49,18 @@ Game::~Game()
 {
     delete Renderer;
     delete Player;
-    delete Ball;
-    delete Particles;
-    delete Effects;
-    delete Text;
-    SoundEngine->drop();
+    delete maze;
+    // delete Ball;
+    // delete Particles;
+    // delete Effects;
+    // delete Text;
+    // SoundEngine->drop();
 }
 
 void Game::Init()
 {
     // load shaders
-    ResourceManager::LoadShader("sprite.vs", "sprite.fs", nullptr, "sprite");
+    ResourceManager::LoadShader("../source/sprite.vs", "../source/sprite.fs", nullptr, "sprite");
     // ResourceManager::LoadShader("particle.vs", "particle.fs", nullptr, "particle");
     // ResourceManager::LoadShader("post_processing.vs", "post_processing.fs", nullptr, "postprocessing");
     // // configure shaders
@@ -71,7 +73,8 @@ void Game::Init()
     // // load textures
     // ResourceManager::LoadTexture(FileSystem::getPath("assets/textures/background.jpg").c_str(), false, "background");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/awesomeface.png").c_str(), true, "face");
-    ResourceManager::LoadTexture(FileSystem::getPath("assets/textures/block.png").c_str(), false, "block");
+    ResourceManager::LoadTexture("assets/textures/block.png", false, "block");
+    // ResourceManager::LoadTexture(FileSystem::getPath("assets/textures/block.png").c_str(), false, "block");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/block_solid.png").c_str(), false, "block_solid");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/paddle.png").c_str(), true, "paddle");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/particle.png").c_str(), true, "particle");
@@ -83,6 +86,8 @@ void Game::Init()
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/powerup_passthrough.png").c_str(), true, "powerup_passthrough");
 
     // // set render-specific controls
+    // Shader sh = Shader(ResourceManager::GetShader("sprite"));
+    // Renderer = new SpriteRenderer(sh);
     Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
     // Particles = new ParticleGenerator(ResourceManager::GetShader("particle"), ResourceManager::GetTexture("particle"), 500);
     // Effects = new PostProcessor(ResourceManager::GetShader("postprocessing"), this->Width, this->Height);
@@ -158,39 +163,40 @@ void Game::Update(float dt)
 
 void Game::ProcessInput(float dt)
 {
-    if (this->State == GAME_MENU)
-    {
-        if (this->Keys[GLFW_KEY_ENTER] && !this->KeysProcessed[GLFW_KEY_ENTER])
-        {
-            this->State = GAME_ACTIVE;
-            this->KeysProcessed[GLFW_KEY_ENTER] = true;
-        }
-        if (this->Keys[GLFW_KEY_W] && !this->KeysProcessed[GLFW_KEY_W])
-        {
-            this->Level = (this->Level + 1) % 4;
-            this->KeysProcessed[GLFW_KEY_W] = true;
-        }
-        if (this->Keys[GLFW_KEY_S] && !this->KeysProcessed[GLFW_KEY_S])
-        {
-            if (this->Level > 0)
-                --this->Level;
-            else
-                this->Level = 3;
-            //this->Level = (this->Level - 1) % 4;
-            this->KeysProcessed[GLFW_KEY_S] = true;
-        }
-    }
-    if (this->State == GAME_WIN)
-    {
-        if (this->Keys[GLFW_KEY_ENTER])
-        {
-            this->KeysProcessed[GLFW_KEY_ENTER] = true;
-            Effects->Chaos = false;
-            this->State = GAME_MENU;
-        }
-    }
+    // if (this->State == GAME_MENU)
+    // {
+    //     if (this->Keys[GLFW_KEY_ENTER] && !this->KeysProcessed[GLFW_KEY_ENTER])
+    //     {
+    //         this->State = GAME_ACTIVE;
+    //         this->KeysProcessed[GLFW_KEY_ENTER] = true;
+    //     }
+    //     if (this->Keys[GLFW_KEY_W] && !this->KeysProcessed[GLFW_KEY_W])
+    //     {
+    //         this->Level = (this->Level + 1) % 4;
+    //         this->KeysProcessed[GLFW_KEY_W] = true;
+    //     }
+    //     if (this->Keys[GLFW_KEY_S] && !this->KeysProcessed[GLFW_KEY_S])
+    //     {
+    //         if (this->Level > 0)
+    //             --this->Level;
+    //         else
+    //             this->Level = 3;
+    //         //this->Level = (this->Level - 1) % 4;
+    //         this->KeysProcessed[GLFW_KEY_S] = true;
+    //     }
+    // }
+    // if (this->State == GAME_WIN)
+    // {
+    //     if (this->Keys[GLFW_KEY_ENTER])
+    //     {
+    //         this->KeysProcessed[GLFW_KEY_ENTER] = true;
+    //         Effects->Chaos = false;
+    //         this->State = GAME_MENU;
+    //     }
+    // }
     if (this->State == GAME_ACTIVE)
     {
+        // std::cout<<"OK " << this->State<<" " <<GAME_ACTIVE<<" ";
         float velocity = MAZE_VELOCITY * dt;
         // move playerboard
         if (this->Keys[GLFW_KEY_A])
@@ -229,8 +235,8 @@ void Game::ProcessInput(float dt)
                 //     Ball->Position.x += velocity;
             }
         }
-        if (this->Keys[GLFW_KEY_SPACE])
-            Ball->Stuck = false;
+        // if (this->Keys[GLFW_KEY_SPACE])
+        //     Ball->Stuck = false;
     }
 }
 
@@ -238,6 +244,7 @@ void Game::Render()
 {
     if (this->State == GAME_ACTIVE || this->State == GAME_MENU || this->State == GAME_WIN)
     {
+        std::cout<<"OK ";
         // // begin rendering to postprocessing framebuffer
         // Effects->BeginRender();
 
@@ -254,7 +261,7 @@ void Game::Render()
         // // draw particles	
         // Particles->Draw();
         // draw ball
-        Maze->Draw(*Renderer);            
+        maze->Draw(*Renderer);            
         // // end rendering to postprocessing framebuffer
         // Effects->EndRender();
         // // render postprocessing quad

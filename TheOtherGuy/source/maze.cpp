@@ -6,7 +6,7 @@
 ** Creative Commons, either version 4 of the License, or (at your
 ** option) any later version.
 ******************************************************************/
-#include "game_level.h"
+#include "maze.h"
 
 #include <fstream>
 #include <sstream>
@@ -90,12 +90,12 @@ void Maze::init(std::vector<std::vector<unsigned int>> tileData, unsigned int le
     //         }
     //     }
     // }
-    mazeSize = glm::vec2(500.0, 600.0)
-    glm::vec2 pos(30, 20);
-    glm::vec2 size(30, 20);
-    this->Walls.push_back(GameObject(pos, size, ResourceManager::GetTexture("block"), color));
-    glm::vec2 pos(50, 60);
-    glm::vec2 size(30, 20);
-    this->Walls.push_back(GameObject(pos, size, ResourceManager::GetTexture("block"), color));
+    mazeSize = glm::vec2(500.0, 600.0);
+    glm::vec2 pos = glm::vec2(30, 20);
+    glm::vec2 sized = glm::vec2(30, 20);
+    this->Walls.push_back(GameObject(pos, sized, ResourceManager::GetTexture("block")));
+    glm::vec2 pos2 = glm::vec2(50, 60);
+    glm::vec2 size2 = glm::vec2(30, 20);
+    this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));
 
 }

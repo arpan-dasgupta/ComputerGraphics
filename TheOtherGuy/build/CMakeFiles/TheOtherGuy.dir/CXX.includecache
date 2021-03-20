@@ -78,6 +78,24 @@ GL/gl.h
 GL/glext.h
 -
 
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.cpp
+algorithm
+-
+sstream
+-
+iostream
+-
+game.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.h
+maze.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.h
+resource_manager.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
+sprite_renderer.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
+game_object.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.h
+
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.h
 vector
 -
@@ -99,18 +117,6 @@ texture.h
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h
 sprite_renderer.h
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
-
-/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/main.cpp
-glad/glad.h
--
-GLFW/glfw3.h
--
-game.h
-/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.h
-resource_manager.h
-/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
-iostream
--
 
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.h
 vector

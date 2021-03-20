@@ -4,7 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/game.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/main.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/main.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/stb_image.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -54,7 +54,7 @@ public:
     bool                    Keys[1024];
     bool                    KeysProcessed[1024];
     unsigned int            Width, Height;
-    Maze                    maze;
+    // Maze                    maze;
     // std::vector<PowerUp>    PowerUps;
     unsigned int            Level;
     unsigned int            Lives;

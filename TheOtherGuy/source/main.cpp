@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
         lastFrame = currentFrame;
         glfwPollEvents();
 
+        // std::cout<<"OK ";
         // manage user input
         // -----------------
         TheOtherGuy.ProcessInput(deltaTime);
