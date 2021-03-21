@@ -73,7 +73,9 @@ void Game::Init()
     // // load textures
     // ResourceManager::LoadTexture(FileSystem::getPath("assets/textures/background.jpg").c_str(), false, "background");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/awesomeface.png").c_str(), true, "face");
-    ResourceManager::LoadTexture("assets/textures/block.png", false, "block");
+    ResourceManager::LoadTexture("../assets/textures/block.png", false, "block");
+    ResourceManager::LoadTexture("../assets/textures/grey.jpg", false, "grey");
+    ResourceManager::LoadTexture("../assets/textures/amongus_2.png", false, "player_1");
     // ResourceManager::LoadTexture(FileSystem::getPath("assets/textures/block.png").c_str(), false, "block");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/block_solid.png").c_str(), false, "block_solid");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/paddle.png").c_str(), true, "paddle");
@@ -106,13 +108,13 @@ void Game::Init()
     // this->Level = 0;
 
     // // load maze
-    glm::vec2 mazePos = glm::vec2(0.0, 0.0);
+    glm::vec2 mazePos = glm::vec2(CENTER.x, CENTER.y);
     maze =  new Maze(mazePos);
     maze->init();
 
     // // // configure game objects
     // glm::vec2 playerPos = glm::vec2(this->Width / 2.0f - PLAYER_SIZE.x / 2.0f, this->Height - PLAYER_SIZE.y);
-    glm::vec2 playerPos = glm::vec2(0.0, 0.0);
+    glm::vec2 playerPos = glm::vec2(CENTER.x, CENTER.y);
     Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("block"));
 
     // glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2.0f - BALL_RADIUS, -BALL_RADIUS * 2.0f);
@@ -202,7 +204,7 @@ void Game::ProcessInput(float dt)
         // move playerboard
         if (this->Keys[GLFW_KEY_A])
         {
-            if (maze->Position.x <= maze->mazeSize.x)
+            if (maze->Position.x - CENTER.x<= maze->mazeSize.x)
             {
                 maze->Position.x += velocity;
                 // if (Ball->Stuck)
@@ -211,7 +213,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_D])
         {
-            if (maze->Position.x >= -maze->mazeSize.x)
+            if (maze->Position.x - CENTER.x>= -maze->mazeSize.x)
             {
                 maze->Position.x -= velocity;
                 // if (Ball->Stuck)
@@ -220,7 +222,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_S])
         {
-            if (maze->Position.y <= maze->mazeSize.y)
+            if (maze->Position.y - CENTER.y <= maze->mazeSize.y)
             {
                 maze->Position.y += velocity;
                 // if (Ball->Stuck)
@@ -229,7 +231,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_W])
         {
-            if (maze->Position.y >= -maze->mazeSize.y)
+            if (maze->Position.y - CENTER.y >= -maze->mazeSize.y)
             {
                 maze->Position.y -= velocity;
                 // if (Ball->Stuck)
@@ -263,8 +265,8 @@ void Game::Render()
         // Particles->Draw();
         // draw ball
         maze->Draw(*Renderer);   
-        Texture2D tt = ResourceManager::GetTexture("block");
-        Renderer->DrawSprite(tt, glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 100.0f), 45.0f, glm::vec3(0.0f, 0.0f, 0.0f));         
+        // Texture2D tt = ResourceManager::GetTexture("block");
+        // Renderer->DrawSprite(tt, glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 100.0f), 45.0f, glm::vec3(0.0f, 0.0f, 0.0f));         
         // // end rendering to postprocessing framebuffer
         // Effects->EndRender();
         // // render postprocessing quad

@@ -8,6 +8,7 @@
 ******************************************************************/
 #include "maze.h"
 
+#include <bits/stdc++.h>
 #include <fstream>
 #include <sstream>
 
@@ -93,12 +94,93 @@ void Maze::init()
     //         }
     //     }
     // }
-    mazeSize = glm::vec2(500.0, 600.0);
-    glm::vec2 pos = glm::vec2(30, 20);
-    glm::vec2 sized = glm::vec2(30, 20);
-    this->Walls.push_back(GameObject(pos, sized, ResourceManager::GetTexture("block")));
-    glm::vec2 pos2 = glm::vec2(50, 60);
-    glm::vec2 size2 = glm::vec2(30, 20);
-    this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));
-
+    int num_hor = (rand()%12 + 3), num_vert = (rand()%1 + 3);
+    float roomsize = 200;
+    float roomdist = 100;
+    glm::vec2 room_shape = glm::vec2(roomsize,roomsize);
+    glm::vec2 room_offset = glm::vec2(roomsize/2,roomsize/2);
+    mazeSize = glm::vec2(roomdist*(num_hor-1)+ roomsize*num_hor + 200, roomdist*(num_vert-1)+ roomsize*num_vert + 200);
+    int dir = rand()%1;
+    if(dir==0)
+    {
+        int curr = 0;
+        adjList.resize(3*num_hor);
+        std::pair<int,int> prep1, prep2;
+        int pre_count=0;
+        for(int i=0;i<num_hor;i++)
+        {
+            int num = (rand()%1)+1;
+            std::pair<int,int> pp1, pp2;
+            if(num==1)
+            {
+                curr++;
+                pp1 = {i*(roomsize+roomdist),(rand()%num_vert)*(roomsize+roomdist)};
+                vertexPositions.push_back(pp1);
+                if(i!=0)
+                {
+                    if(pre_count==1)
+                    {
+                        adjList[curr].push_back(curr-1);
+                        adjList[curr-1].push_back(curr);
+                        edges.push_back({curr,curr-1});
+                    }
+                    else
+                    {
+                        adjList[curr].push_back(curr-1);
+                        adjList[curr-1].push_back(curr);
+                        edges.push_back({curr,curr-1});
+                        adjList[curr].push_back(curr-2);
+                        adjList[curr-2].push_back(curr);
+                        edges.push_back({curr,curr-2});
+                    }
+                }
+            }
+            else
+            {
+                curr +=2;
+                pp1 = {i*(roomsize+roomdist),(rand()%(num_vert/2))*(roomsize+roomdist)};
+                pp2 = {i*(roomsize+roomdist),(rand()%(num_vert/2)+(num_vert/2))*(roomsize+roomdist)};
+                vertexPositions.push_back(pp1);
+                vertexPositions.push_back(pp2);
+                adjList[curr].push_back(curr-1);
+                adjList[curr-1].push_back(curr);
+                edges.push_back({curr,curr-1});
+                if(i!=0)
+                {
+                    if(pre_count==1)
+                    {
+                        adjList[curr].push_back(curr-2);
+                        adjList[curr-2].push_back(curr);
+                        edges.push_back({curr,curr-2});
+                        adjList[curr-1].push_back(curr-2);
+                        adjList[curr-2].push_back(curr-1);
+                        edges.push_back({curr-1,curr-2});
+                    }
+                    else
+                    {
+                        adjList[curr].push_back(curr-2);
+                        adjList[curr-2].push_back(curr);
+                        edges.push_back({curr,curr-2});
+                        adjList[curr-1].push_back(curr-3);
+                        adjList[curr-3].push_back(curr-1);
+                        edges.push_back({curr-1,curr-3});
+                    }
+                }
+            }
+            pre_count = num;
+            prep1 = pp1, prep2 = pp2;
+        }
+        for(int i=0;i<vertexPositions.size();i++)
+        {
+            // std::cout<<vertexPositions[i].first<<" "<<vertexPositions[i].second<<'\n';
+            glm::vec2 room_pos = glm::vec2(vertexPositions[i].first,vertexPositions[i].second);
+            this->Walls.push_back(GameObject(room_pos+room_offset, room_shape, ResourceManager::GetTexture("grey")));     
+        }
+        // for(int i=0;i<edges.size();i++)
+        // {
+        //     this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));     
+        // }
+    }
+    // exit(0);
+    // this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));
 }

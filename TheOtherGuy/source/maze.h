@@ -29,6 +29,10 @@ public:
     glm::vec2   topLeft, bottomRight;
     glm::vec2   mazeSize;
 
+    std::vector<std::vector<int>> adjList;
+    std::vector<std::pair<float,float>> vertexPositions;
+    std::vector<std::pair<int,int>> edges;
+
     // constructor
     Maze() { }
     Maze(glm::vec2 pos) { Position = pos; }
