@@ -75,7 +75,7 @@ void Game::Init()
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/awesomeface.png").c_str(), true, "face");
     ResourceManager::LoadTexture("../assets/textures/block.png", false, "block");
     ResourceManager::LoadTexture("../assets/textures/grey.jpg", false, "grey");
-    ResourceManager::LoadTexture("../assets/textures/amongus_2.png", false, "player_1");
+    ResourceManager::LoadTexture("../assets/textures/amongus_4.png", false, "player_1");
     // ResourceManager::LoadTexture(FileSystem::getPath("assets/textures/block.png").c_str(), false, "block");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/block_solid.png").c_str(), false, "block_solid");
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/paddle.png").c_str(), true, "paddle");
@@ -115,7 +115,7 @@ void Game::Init()
     // // // configure game objects
     // glm::vec2 playerPos = glm::vec2(this->Width / 2.0f - PLAYER_SIZE.x / 2.0f, this->Height - PLAYER_SIZE.y);
     glm::vec2 playerPos = glm::vec2(CENTER.x, CENTER.y);
-    Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("block"));
+    Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("player_1"));
 
     // glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2.0f - BALL_RADIUS, -BALL_RADIUS * 2.0f);
     // Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));

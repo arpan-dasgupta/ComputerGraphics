@@ -81,7 +81,7 @@ bool pointIsInQuad(glm::vec2 point, glm::vec2 quad[4])
 
 int Maze::checkInside(glm::vec2 point)
 {
-    std::cout<<point.x<<" "<<point.y<<'\n';
+    // std::cout<<point.x<<" "<<point.y<<'\n';
     // for(int i=0;i<roomCoords.size();i+=4)
     // {
     //     if(point.x>=roomCoords[i].x && point.y<=roomCoords[i].y && point.x<=roomCoords[i+1].x && point.y<=roomCoords[i+1].y &&
@@ -100,7 +100,7 @@ int Maze::checkInside(glm::vec2 point)
         if(pointIsInQuad(point,quad))
             return 2;
     }
-    std::cout<<"No\n";
+    // std::cout<<"No\n";
     return 0;
 }
 
