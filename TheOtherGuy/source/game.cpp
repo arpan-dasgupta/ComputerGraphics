@@ -204,7 +204,7 @@ void Game::ProcessInput(float dt)
         // move playerboard
         if (this->Keys[GLFW_KEY_A])
         {
-            if (maze->Position.x - CENTER.x<= maze->mazeSize.x)
+            if (maze->Position.x - CENTER.x<= maze->mazeSize.x && maze->checkInside(Player->Position+glm::vec2(-velocity,0.0) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(-velocity,PLAYER_SIZE.y) - maze->Position))
             {
                 maze->Position.x += velocity;
                 // if (Ball->Stuck)
@@ -213,7 +213,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_D])
         {
-            if (maze->Position.x - CENTER.x>= -maze->mazeSize.x)
+            if (maze->Position.x - CENTER.x>= -maze->mazeSize.x && maze->checkInside(Player->Position+glm::vec2(velocity + PLAYER_SIZE.x,PLAYER_SIZE.y) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(velocity + PLAYER_SIZE.x,0.0) - maze->Position))
             {
                 maze->Position.x -= velocity;
                 // if (Ball->Stuck)
@@ -222,7 +222,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_S])
         {
-            if (maze->Position.y - CENTER.y >= -maze->mazeSize.y)
+            if (maze->Position.y - CENTER.y >= -maze->mazeSize.y && maze->checkInside(Player->Position+glm::vec2(PLAYER_SIZE.x,velocity+PLAYER_SIZE.y) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(0.0,PLAYER_SIZE.y + velocity) - maze->Position))
             {
                 maze->Position.y -= velocity;
                 // if (Ball->Stuck)
@@ -231,7 +231,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_W])
         {
-            if (maze->Position.y - CENTER.y <= maze->mazeSize.y)
+            if (maze->Position.y - CENTER.y <= maze->mazeSize.y && maze->checkInside(Player->Position+glm::vec2(0.0, -velocity) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(PLAYER_SIZE.x,-velocity) - maze->Position))
             {
                 maze->Position.y += velocity;
                 // if (Ball->Stuck)

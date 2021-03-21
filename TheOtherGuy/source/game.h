@@ -35,9 +35,9 @@ enum Direction {
 typedef std::tuple<bool, Direction, glm::vec2> Collision; // <collision?, what direction?, difference vector center - closest point>
 
 // Initial size of the player
-const glm::vec2 PLAYER_SIZE(50.0f, 80.0f);
+const glm::vec2 PLAYER_SIZE(40.0f, 60.0f);
 // Initial velocity of the maze
-const float MAZE_VELOCITY(500.0f);
+const float MAZE_VELOCITY(300.0f);
 // Initial velocity of the Ball
 const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
 const glm::vec2 CENTER(400.0f, 400.0f);

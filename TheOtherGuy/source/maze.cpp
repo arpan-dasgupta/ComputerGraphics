@@ -59,6 +59,51 @@ void Maze::Draw(SpriteRenderer &renderer)
 //     return true;
 // }
 
+// function SameSide(p1,p2, a,b)
+//     cp1 = CrossProduct(b-a, p1-a)
+//     cp2 = CrossProduct(b-a, p2-a)
+//     if DotProduct(cp1, cp2) >= 0 then return true
+//     else return false
+
+// function PointInTriangle(p, a,b,c)
+//     if SameSide(p,a, b,c) and SameSide(p,b, a,c)
+//         and SameSide(p,c, a,b) then return true
+//     else return false
+
+bool pointIsInQuad(glm::vec2 point, glm::vec2 quad[4])
+{
+    bool sides[4];
+    for (int i = 0; i < 4; i++) {
+        sides[i] = ((point.x - quad[i].x)*(quad[(i + 1)%4].y - quad[i].y) - (point.y - quad[i].y)*(quad[(i + 1)%4].x - quad[i].x)) > 0.0f;
+    }
+    return ((sides[0] == sides[1]) && (sides[0] == sides[2]) && (sides[0] == sides[3]));
+}
+
+int Maze::checkInside(glm::vec2 point)
+{
+    std::cout<<point.x<<" "<<point.y<<'\n';
+    // for(int i=0;i<roomCoords.size();i+=4)
+    // {
+    //     if(point.x>=roomCoords[i].x && point.y<=roomCoords[i].y && point.x<=roomCoords[i+1].x && point.y<=roomCoords[i+1].y &&
+    //         point.x<=roomCoords[i+2].x && point.y>=roomCoords[i+2].y && point.x>=roomCoords[i+3].x && point.y>=roomCoords[i+3].y)
+    //         return 1;
+    // }
+    for(int i=0;i<roomCoords.size();i+=4)
+    {
+        glm::vec2 quad[4] = {roomCoords[i],roomCoords[i+1],roomCoords[i+2],roomCoords[i+3]};
+        if(pointIsInQuad(point,quad))
+            return 2;
+    }
+    for(int i=0;i<pathCoords.size();i+=4)
+    {
+        glm::vec2 quad[4] = {pathCoords[i],pathCoords[i+1],pathCoords[i+2],pathCoords[i+3]};
+        if(pointIsInQuad(point,quad))
+            return 2;
+    }
+    std::cout<<"No\n";
+    return 0;
+}
+
 glm::vec4 Maze::get_corners(glm::vec2 position, float rotate, glm::vec2 size, int room)
 {
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(800.0), static_cast<float>(800.0), 0.0f, -1.0f, 1.0f);
@@ -100,8 +145,8 @@ glm::vec4 Maze::get_corners(glm::vec2 position, float rotate, glm::vec2 size, in
 
 void Maze::init()
 {
-    srand(time(0)); // Truly random
-    int num_hor = (rand()%7 + 3), num_vert = (rand()%7 + 3);
+    // srand(time(0)); // Truly random
+    int num_hor = (rand()%1 + 3), num_vert = (rand()%1 + 3);
     float roomsize = 200;
     float roomdist = 100;
     glm::vec2 room_shape = glm::vec2(roomsize,roomsize);
@@ -268,7 +313,7 @@ void Maze::init()
         glm::vec2 room_pos_2 = glm::vec2(vertexPositions[edges[i].second].first,vertexPositions[edges[i].second].second);
         rot = atan2((room_pos_2.y-room_pos_1.y),(room_pos_2.x-room_pos_1.x));
         float dist = glm::length(room_pos_1-room_pos_2);
-        glm::vec2 path_shape = glm::vec2(dist,75.0);
+        glm::vec2 path_shape = glm::vec2(dist,90.0);
         glm::vec2 mid = glm::vec2((room_pos_1.x+room_pos_2.x)/2,(room_pos_1.y+room_pos_2.y)/2);
         glm::vec2 hallaf = glm::vec2(dist/2.0,75.0/2.0);
         GameObject obj = GameObject(mid-hallaf, path_shape, ResourceManager::GetTexture("grey"));
@@ -283,13 +328,15 @@ void Maze::init()
     }
 
     // check if corners are correct
-    for(auto a: pathCoords)
+    for(auto a: roomCoords)
     {
         this->Walls.push_back(GameObject(a, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
     }
 
     int playerInitVertex = rand()%vertexPositions.size();
     playerInitPos = glm::vec2(vertexPositions[playerInitVertex].first,vertexPositions[playerInitVertex].second);
+    // this->Walls.push_back(GameObject(playerInitPos, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+    this->Position = -(playerInitPos-glm::vec2(400.0,400.0));
     // exit(0);
     // this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));
 }

@@ -46,6 +46,7 @@ public:
     // check if the level is completed (all non-solid tiles are destroyed)
     bool IsCompleted();
     void init();
+    int checkInside(glm::vec2 point);
 private:
     glm::vec4 get_corners(glm::vec2 position, float rotate, glm::vec2 size, int room);
     // initialize level from tile data
