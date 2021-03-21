@@ -86,9 +86,9 @@ void Game::Init()
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/powerup_passthrough.png").c_str(), true, "powerup_passthrough");
 
     // // set render-specific controls
-    // Shader sh = Shader(ResourceManager::GetShader("sprite"));
-    // Renderer = new SpriteRenderer(sh);
-    Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+    Shader sh = Shader(ResourceManager::GetShader("sprite"));
+    Renderer = new SpriteRenderer(sh);
+    // Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
     // Particles = new ParticleGenerator(ResourceManager::GetShader("particle"), ResourceManager::GetTexture("particle"), 500);
     // Effects = new PostProcessor(ResourceManager::GetShader("postprocessing"), this->Width, this->Height);
     // Text = new TextRenderer(this->Width, this->Height);
@@ -108,6 +108,7 @@ void Game::Init()
     // // load maze
     glm::vec2 mazePos = glm::vec2(0.0, 0.0);
     maze =  new Maze(mazePos);
+    maze->init();
 
     // // // configure game objects
     // glm::vec2 playerPos = glm::vec2(this->Width / 2.0f - PLAYER_SIZE.x / 2.0f, this->Height - PLAYER_SIZE.y);
@@ -244,7 +245,7 @@ void Game::Render()
 {
     if (this->State == GAME_ACTIVE || this->State == GAME_MENU || this->State == GAME_WIN)
     {
-        std::cout<<"OK ";
+        // std::cout<<"OK ";
         // // begin rendering to postprocessing framebuffer
         // Effects->BeginRender();
 
@@ -261,7 +262,9 @@ void Game::Render()
         // // draw particles	
         // Particles->Draw();
         // draw ball
-        maze->Draw(*Renderer);            
+        maze->Draw(*Renderer);   
+        Texture2D tt = ResourceManager::GetTexture("block");
+        Renderer->DrawSprite(tt, glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 100.0f), 45.0f, glm::vec3(0.0f, 0.0f, 0.0f));         
         // // end rendering to postprocessing framebuffer
         // Effects->EndRender();
         // // render postprocessing quad

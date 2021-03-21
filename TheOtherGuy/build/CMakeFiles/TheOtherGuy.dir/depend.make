@@ -48,6 +48,7 @@ CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o: ../libraries/glad/incl
 CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o: ../source/resource_manager.cpp
 CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o: ../source/resource_manager.h
 CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o: ../source/shader.h
+CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o: ../source/stb_image.h
 CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o: ../source/texture.h
 
 CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o: ../libraries/glad/include/KHR/khrplatform.h

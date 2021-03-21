@@ -49,6 +49,7 @@ CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.cpp
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/stb_image.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h
 CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o
  ../libraries/glad/include/KHR/khrplatform.h

@@ -7,7 +7,7 @@
 ** option) any later version.
 ******************************************************************/
 #include "sprite_renderer.h"
-
+#include <iostream>
 
 SpriteRenderer::SpriteRenderer(Shader &shader)
 {
@@ -44,6 +44,7 @@ void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec
     glBindVertexArray(this->quadVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
+    std::cout<<position.x <<" "<< position.y <<'\n';
 }
 
 void SpriteRenderer::initRenderData()

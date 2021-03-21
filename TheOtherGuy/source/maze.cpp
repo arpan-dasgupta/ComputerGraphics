@@ -40,8 +40,11 @@
 void Maze::Draw(SpriteRenderer &renderer)
 {
     for (GameObject &tile : this->Walls)
+    {
         // if (!tile.Destroyed)
+        tile.Offset = this->Position;
         tile.Draw(renderer);
+    }
 }
 
 // bool Maze::IsCompleted()
@@ -52,7 +55,7 @@ void Maze::Draw(SpriteRenderer &renderer)
 //     return true;
 // }
 
-void Maze::init(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth, unsigned int levelHeight)
+void Maze::init()
 {
     // // calculate dimensions
     // unsigned int height = tileData.size();
