@@ -33,6 +33,8 @@ public:
     std::vector<std::vector<std::pair<int,float>>> adjListWeighted;
     std::vector<std::pair<float,float>> vertexPositions;
     std::vector<std::pair<int,int>> edges;
+    glm::vec2   playerInitPos;
+    std::vector<glm::vec2> roomCoords, pathCoords;
 
     // constructor
     Maze() { }
@@ -44,7 +46,8 @@ public:
     // check if the level is completed (all non-solid tiles are destroyed)
     bool IsCompleted();
     void init();
-// private:
+private:
+    glm::vec4 get_corners(glm::vec2 position, float rotate, glm::vec2 size, int room);
     // initialize level from tile data
     // void init(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth, unsigned int levelHeight);
 };
