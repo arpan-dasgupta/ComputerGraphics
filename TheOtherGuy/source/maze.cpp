@@ -98,12 +98,12 @@ void Maze::init()
     //         }
     //     }
     // }
-    int num_hor = (rand()%12 + 3), num_vert = (rand()%1 + 3);
+    int num_hor = (rand()%12 + 3), num_vert = (rand()%6 + 3);
     float roomsize = 200;
     float roomdist = 100;
     glm::vec2 room_shape = glm::vec2(roomsize,roomsize);
-    glm::vec2 room_offset = glm::vec2(roomsize/2,roomsize/2);
-    mazeSize = glm::vec2(roomdist*(num_hor-1)+ roomsize*num_hor + 200, roomdist*(num_vert-1)+ roomsize*num_vert + 200);
+    glm::vec2 room_offset = glm::vec2(-roomsize/2,-roomsize/2);
+    mazeSize = glm::vec2(roomdist*(num_hor-1) + roomsize*num_hor + 200, roomdist*(num_vert-1) + roomsize*num_vert + 200);
     int dir = rand()%1;
     if(dir==0)
     {
@@ -113,7 +113,7 @@ void Maze::init()
         int pre_count=0;
         for(int i=0;i<num_hor;i++)
         {
-            int num = (rand()%1)+1;
+            int num = (rand()%2)+1;
             std::pair<int,int> pp1, pp2;
             if(num==1)
             {
@@ -124,18 +124,18 @@ void Maze::init()
                 {
                     if(pre_count==1)
                     {
-                        adjList[curr].push_back(curr-1);
-                        adjList[curr-1].push_back(curr);
-                        edges.push_back({curr,curr-1});
+                        adjList[curr-1].push_back(curr-1-1);
+                        adjList[curr-1-1].push_back(curr-1);
+                        edges.push_back({curr-1,curr-1-1});
                     }
                     else
                     {
-                        adjList[curr].push_back(curr-1);
-                        adjList[curr-1].push_back(curr);
-                        edges.push_back({curr,curr-1});
-                        adjList[curr].push_back(curr-2);
-                        adjList[curr-2].push_back(curr);
-                        edges.push_back({curr,curr-2});
+                        adjList[curr-1].push_back(curr-1-1);
+                        adjList[curr-1-1].push_back(curr-1);
+                        edges.push_back({curr-1,curr-1-1});
+                        adjList[curr-1].push_back(curr-1-2);
+                        adjList[curr-1-2].push_back(curr-1);
+                        edges.push_back({curr-1,curr-1-2});
                     }
                 }
             }
@@ -146,55 +146,52 @@ void Maze::init()
                 pp2 = {i*(roomsize+roomdist),(rand()%(num_vert/2)+(num_vert/2))*(roomsize+roomdist)};
                 vertexPositions.push_back(pp1);
                 vertexPositions.push_back(pp2);
-                adjList[curr].push_back(curr-1);
-                adjList[curr-1].push_back(curr);
-                edges.push_back({curr,curr-1});
+                adjList[curr-1].push_back(curr-2);
+                adjList[curr-2].push_back(curr-1);
+                edges.push_back({curr-2,curr-1});
                 if(i!=0)
                 {
                     if(pre_count==1)
                     {
-                        adjList[curr].push_back(curr-2);
-                        adjList[curr-2].push_back(curr);
-                        edges.push_back({curr,curr-2});
-                        adjList[curr-1].push_back(curr-2);
-                        adjList[curr-2].push_back(curr-1);
-                        edges.push_back({curr-1,curr-2});
-                    }
-                    else
-                    {
-                        adjList[curr].push_back(curr-2);
-                        adjList[curr-2].push_back(curr);
-                        edges.push_back({curr,curr-2});
                         adjList[curr-1].push_back(curr-3);
                         adjList[curr-3].push_back(curr-1);
                         edges.push_back({curr-1,curr-3});
+                        adjList[curr-1-1].push_back(curr-1-2);
+                        adjList[curr-1-2].push_back(curr-1-1);
+                        edges.push_back({curr-1-1,curr-1-2});
+                    }
+                    else
+                    {
+                        adjList[curr-1].push_back(curr-1-2);
+                        adjList[curr-1-2].push_back(curr-1);
+                        edges.push_back({curr-1,curr-1-2});
+                        adjList[curr-1-1].push_back(curr-1-3);
+                        adjList[curr-1-3].push_back(curr-1-1);
+                        edges.push_back({curr-1-1,curr-1-3});
                     }
                 }
             }
             pre_count = num;
             prep1 = pp1, prep2 = pp2;
         }
+        // std::cout<<"Hi\n";
         for(int i=0;i<vertexPositions.size();i++)
         {
             // std::cout<<vertexPositions[i].first<<" "<<vertexPositions[i].second<<'\n';
             glm::vec2 room_pos = glm::vec2(vertexPositions[i].first,vertexPositions[i].second);
             this->Walls.push_back(GameObject(room_pos+room_offset, room_shape, ResourceManager::GetTexture("grey")));     
         }
-        for(int i=0;i<edges.size();i++)+
+        for(int i=0;i<edges.size();i++)
         {
             float rot = 0;
-            glm::vec2 room_pos_1 = glm::vec2(vertexPositions[edges[i].first].first,vertexPositions[edges[i].first].second) + room_offset;
-            glm::vec2 room_pos_2 = glm::vec2(vertexPositions[edges[i].second].first,vertexPositions[edges[i].second].second) + room_offset;
-            if(room_pos_2.x==room_pos_1.x)
-            {
-                rot = (room_pos_2.y>room_pos_1.y)?-PI/2:PI/2;
-            }
-            else{
-                rot = glm::tanh((room_pos_2.y-room_pos_1.y)/(room_pos_2.x-room_pos_1.x));
-            }
+            glm::vec2 room_pos_1 = glm::vec2(vertexPositions[edges[i].first].first,vertexPositions[edges[i].first].second);
+            glm::vec2 room_pos_2 = glm::vec2(vertexPositions[edges[i].second].first,vertexPositions[edges[i].second].second);
+            rot = atan2((room_pos_2.y-room_pos_1.y),(room_pos_2.x-room_pos_1.x));
             glm::vec2 path_shape = glm::vec2(glm::length(room_pos_1-room_pos_2),75.0);
-            GameObject obj = GameObject(room_pos_1, path_shape, ResourceManager::GetTexture("block"));
-            obj.Rotation = rot;
+            glm::vec2 mid = glm::vec2((room_pos_1.x+room_pos_2.x)/2,(room_pos_1.y+room_pos_2.y)/2);
+            glm::vec2 hallaf = glm::vec2(glm::length(room_pos_1-room_pos_2)/2.0,75.0/2.0);
+            GameObject obj = GameObject(mid-hallaf, path_shape, ResourceManager::GetTexture("grey"));
+            obj.Rotation = rot*180.0/PI;
             this->Walls.push_back(obj);
 
         }

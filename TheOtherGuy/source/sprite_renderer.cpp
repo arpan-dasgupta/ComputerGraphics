@@ -22,8 +22,8 @@ SpriteRenderer::~SpriteRenderer()
 
 void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size, float rotate, glm::vec3 color)
 {
-    std::cout<<rotate<<'\n';
-    std::cout<<position.x<<" "<<position.y<<'\n';
+    // std::cout<<rotate<<'\n';
+    // std::cout<<position.x<<" "<<position.y<<'\n';
     // prepare transformations
     this->shader.Use();
     glm::mat4 model = glm::mat4(1.0f);

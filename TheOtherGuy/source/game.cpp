@@ -222,7 +222,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_S])
         {
-            if (maze->Position.y - CENTER.y <= maze->mazeSize.y)
+            if (maze->Position.y - CENTER.y >= -maze->mazeSize.y)
             {
                 maze->Position.y -= velocity;
                 // if (Ball->Stuck)
@@ -231,7 +231,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_W])
         {
-            if (maze->Position.y - CENTER.y >= -maze->mazeSize.y)
+            if (maze->Position.y - CENTER.y <= maze->mazeSize.y)
             {
                 maze->Position.y += velocity;
                 // if (Ball->Stuck)
