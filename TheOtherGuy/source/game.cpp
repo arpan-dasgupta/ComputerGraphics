@@ -224,7 +224,7 @@ void Game::ProcessInput(float dt)
         {
             if (maze->Position.y - CENTER.y <= maze->mazeSize.y)
             {
-                maze->Position.y += velocity;
+                maze->Position.y -= velocity;
                 // if (Ball->Stuck)
                 //     Ball->Position.x += velocity;
             }
@@ -233,7 +233,7 @@ void Game::ProcessInput(float dt)
         {
             if (maze->Position.y - CENTER.y >= -maze->mazeSize.y)
             {
-                maze->Position.y -= velocity;
+                maze->Position.y += velocity;
                 // if (Ball->Stuck)
                 //     Ball->Position.x += velocity;
             }
@@ -256,6 +256,7 @@ void Game::Render()
         // draw level
         // this->Levels[this->Level].Draw(*Renderer);
         // draw player
+        maze->Draw(*Renderer);   
         Player->Draw(*Renderer);
         // // draw PowerUps
         // for (PowerUp &powerUp : this->PowerUps)
@@ -264,7 +265,6 @@ void Game::Render()
         // // draw particles	
         // Particles->Draw();
         // draw ball
-        maze->Draw(*Renderer);   
         // Texture2D tt = ResourceManager::GetTexture("block");
         // Renderer->DrawSprite(tt, glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 100.0f), 45.0f, glm::vec3(0.0f, 0.0f, 0.0f));         
         // // end rendering to postprocessing framebuffer

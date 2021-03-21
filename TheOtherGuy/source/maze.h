@@ -30,6 +30,7 @@ public:
     glm::vec2   mazeSize;
 
     std::vector<std::vector<int>> adjList;
+    std::vector<std::vector<std::pair<int,float>>> adjListWeighted;
     std::vector<std::pair<float,float>> vertexPositions;
     std::vector<std::pair<int,int>> edges;
 

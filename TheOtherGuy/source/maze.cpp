@@ -11,7 +11,9 @@
 #include <bits/stdc++.h>
 #include <fstream>
 #include <sstream>
+#include <math.h>
 
+#define PI 3.14159265358979323846
 
 // void Maze::Load(const char *file, unsigned int levelWidth, unsigned int levelHeight)
 // {
@@ -55,6 +57,8 @@ void Maze::Draw(SpriteRenderer &renderer)
 //             return false;
 //     return true;
 // }
+
+
 
 void Maze::init()
 {
@@ -176,10 +180,24 @@ void Maze::init()
             glm::vec2 room_pos = glm::vec2(vertexPositions[i].first,vertexPositions[i].second);
             this->Walls.push_back(GameObject(room_pos+room_offset, room_shape, ResourceManager::GetTexture("grey")));     
         }
-        // for(int i=0;i<edges.size();i++)
-        // {
-        //     this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));     
-        // }
+        for(int i=0;i<edges.size();i++)+
+        {
+            float rot = 0;
+            glm::vec2 room_pos_1 = glm::vec2(vertexPositions[edges[i].first].first,vertexPositions[edges[i].first].second) + room_offset;
+            glm::vec2 room_pos_2 = glm::vec2(vertexPositions[edges[i].second].first,vertexPositions[edges[i].second].second) + room_offset;
+            if(room_pos_2.x==room_pos_1.x)
+            {
+                rot = (room_pos_2.y>room_pos_1.y)?-PI/2:PI/2;
+            }
+            else{
+                rot = glm::tanh((room_pos_2.y-room_pos_1.y)/(room_pos_2.x-room_pos_1.x));
+            }
+            glm::vec2 path_shape = glm::vec2(glm::length(room_pos_1-room_pos_2),75.0);
+            GameObject obj = GameObject(room_pos_1, path_shape, ResourceManager::GetTexture("block"));
+            obj.Rotation = rot;
+            this->Walls.push_back(obj);
+
+        }
     }
     // exit(0);
     // this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));
