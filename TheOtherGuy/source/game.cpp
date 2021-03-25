@@ -31,7 +31,6 @@
 SpriteRenderer    *Renderer;
 GameObject        *Player;
 Maze              *maze;
-std::vector<PowerUp*>  powerups;
 // PowerUp                 *powerups;
 // BallObject        *Ball;
 // ParticleGenerator *Particles;
@@ -112,6 +111,9 @@ void Game::Init()
     PowerUp *p1 = new PowerUp(exitPos, 0);
     PowerUp *p2 = new PowerUp(but1, 1);
     PowerUp *p3 = new PowerUp(but2, 2);
+    p1->init();
+    p2->init();
+    p3->init();
     powerups.push_back(p1);
     powerups.push_back(p2);
     powerups.push_back(p3);
@@ -274,6 +276,9 @@ void Game::Render()
         }
 
         Player->Draw(*Renderer);
+
+        // std::cout<<powerups.size()<<'\n';
+        // exit(0);
         // // draw PowerUps
         // for (PowerUp &powerUp : this->PowerUps)
         //     if (!powerUp.Destroyed)

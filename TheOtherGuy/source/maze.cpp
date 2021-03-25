@@ -366,7 +366,7 @@ void Maze::init()
     int epos = 0;
     exitPos = glm::vec2(vertexPositions[epos].first,vertexPositions[epos].second);
     // this->Walls.push_back(GameObject(playerInitPos, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
-    this->exitPos = this->Position + exitPos);
+    this->exitPos = this->Position + exitPos;
     // exit(0);
     // this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));
 
