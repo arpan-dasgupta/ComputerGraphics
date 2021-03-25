@@ -128,9 +128,22 @@ CMakeFiles/TheOtherGuy.dir/source/maze.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TheOtherGuy.dir/source/maze.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.cpp -o CMakeFiles/TheOtherGuy.dir/source/maze.cpp.s
 
+CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o: CMakeFiles/TheOtherGuy.dir/flags.make
+CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o: ../source/power_up.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o -c /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/power_up.cpp
+
+CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/power_up.cpp > CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.i
+
+CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/power_up.cpp -o CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.s
+
 CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o: CMakeFiles/TheOtherGuy.dir/flags.make
 CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o: ../source/resource_manager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o -c /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.cpp
 
 CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.i: cmake_force
@@ -143,7 +156,7 @@ CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.s: cmake_force
 
 CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o: CMakeFiles/TheOtherGuy.dir/flags.make
 CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o: ../source/shader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o -c /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.cpp
 
 CMakeFiles/TheOtherGuy.dir/source/shader.cpp.i: cmake_force
@@ -156,7 +169,7 @@ CMakeFiles/TheOtherGuy.dir/source/shader.cpp.s: cmake_force
 
 CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o: CMakeFiles/TheOtherGuy.dir/flags.make
 CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o: ../source/sprite_renderer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o -c /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.cpp
 
 CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.i: cmake_force
@@ -169,7 +182,7 @@ CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.s: cmake_force
 
 CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o: CMakeFiles/TheOtherGuy.dir/flags.make
 CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o: ../source/stb_image.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o -c /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/stb_image.cpp
 
 CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.i: cmake_force
@@ -182,7 +195,7 @@ CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.s: cmake_force
 
 CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o: CMakeFiles/TheOtherGuy.dir/flags.make
 CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o: ../source/texture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o -c /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.cpp
 
 CMakeFiles/TheOtherGuy.dir/source/texture.cpp.i: cmake_force
@@ -199,6 +212,7 @@ TheOtherGuy_OBJECTS = \
 "CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.o" \
 "CMakeFiles/TheOtherGuy.dir/source/main.cpp.o" \
 "CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o" \
+"CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o" \
 "CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o" \
 "CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o" \
 "CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o" \
@@ -212,6 +226,7 @@ TheOtherGuy: CMakeFiles/TheOtherGuy.dir/source/game.cpp.o
 TheOtherGuy: CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.o
 TheOtherGuy: CMakeFiles/TheOtherGuy.dir/source/main.cpp.o
 TheOtherGuy: CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o
+TheOtherGuy: CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o
 TheOtherGuy: CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o
 TheOtherGuy: CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o
 TheOtherGuy: CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o
@@ -223,7 +238,7 @@ TheOtherGuy: libglad.a
 TheOtherGuy: /usr/lib/librt.so
 TheOtherGuy: /usr/lib/libm.so
 TheOtherGuy: CMakeFiles/TheOtherGuy.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable TheOtherGuy"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable TheOtherGuy"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TheOtherGuy.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

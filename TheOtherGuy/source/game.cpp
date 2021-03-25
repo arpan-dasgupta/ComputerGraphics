@@ -20,6 +20,7 @@
 #include "resource_manager.h"
 #include "sprite_renderer.h"
 #include "game_object.h"
+#include "power_up.h"
 // #include "ball_object.h"
 // #include "particle_generator.h"
 // #include "post_processor.h"
@@ -30,6 +31,8 @@
 SpriteRenderer    *Renderer;
 GameObject        *Player;
 Maze              *maze;
+std::vector<PowerUp*>  powerups;
+// PowerUp                 *powerups;
 // BallObject        *Ball;
 // ParticleGenerator *Particles;
 // PostProcessor     *Effects;
@@ -76,16 +79,9 @@ void Game::Init()
     ResourceManager::LoadTexture("../assets/textures/block.png", false, "block");
     ResourceManager::LoadTexture("../assets/textures/grey.jpg", false, "grey");
     ResourceManager::LoadTexture("../assets/textures/amongus_4.png", false, "player_1");
-    // ResourceManager::LoadTexture(FileSystem::getPath("assets/textures/block.png").c_str(), false, "block");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/block_solid.png").c_str(), false, "block_solid");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/paddle.png").c_str(), true, "paddle");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/particle.png").c_str(), true, "particle");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/powerup_speed.png").c_str(), true, "powerup_speed");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/powerup_sticky.png").c_str(), true, "powerup_sticky");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/powerup_increase.png").c_str(), true, "powerup_increase");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/powerup_confuse.png").c_str(), true, "powerup_confuse");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/powerup_chaos.png").c_str(), true, "powerup_chaos");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/powerup_passthrough.png").c_str(), true, "powerup_passthrough");
+    ResourceManager::LoadTexture("../assets/textures/coin2.png", false, "coin");
+    ResourceManager::LoadTexture("../assets/textures/star2.png", false, "star");
+    ResourceManager::LoadTexture("../assets/textures/door.png", false, "door");
 
     // // set render-specific controls
     Shader sh = Shader(ResourceManager::GetShader("sprite"));
@@ -111,6 +107,14 @@ void Game::Init()
     glm::vec2 mazePos = glm::vec2(CENTER.x, CENTER.y);
     maze =  new Maze(mazePos);
     maze->init();
+
+    glm::vec2 exitPos = maze->exitPos, but1 = maze->powerUp1Pos, but2 = maze->powerUp2Pos;
+    PowerUp *p1 = new PowerUp(exitPos, 0);
+    PowerUp *p2 = new PowerUp(but1, 1);
+    PowerUp *p3 = new PowerUp(but2, 2);
+    powerups.push_back(p1);
+    powerups.push_back(p2);
+    powerups.push_back(p3);
 
     // // // configure game objects
     // glm::vec2 playerPos = glm::vec2(this->Width / 2.0f - PLAYER_SIZE.x / 2.0f, this->Height - PLAYER_SIZE.y);
@@ -200,6 +204,7 @@ void Game::ProcessInput(float dt)
     if (this->State == GAME_ACTIVE)
     {
         // std::cout<<"OK " << this->State<<" " <<GAME_ACTIVE<<" ";
+        glm::vec2 curmaze = maze->Position;
         float velocity = MAZE_VELOCITY * dt;
         // move playerboard
         if (this->Keys[GLFW_KEY_A])
@@ -240,6 +245,11 @@ void Game::ProcessInput(float dt)
         }
         // if (this->Keys[GLFW_KEY_SPACE])
         //     Ball->Stuck = false;
+        glm::vec2 new_maze = maze->Position;
+        for(auto pp: powerups)
+        {
+            pp->Position += new_maze - curmaze;
+        }
     }
 }
 
@@ -257,6 +267,12 @@ void Game::Render()
         // this->Levels[this->Level].Draw(*Renderer);
         // draw player
         maze->Draw(*Renderer);   
+
+        for(auto aa: powerups)
+        {
+            aa->Draw(*Renderer);
+        }
+
         Player->Draw(*Renderer);
         // // draw PowerUps
         // for (PowerUp &powerUp : this->PowerUps)
@@ -540,17 +556,17 @@ void Game::Render()
 //     }
 // }
 
-// bool CheckCollision(GameObject &one, GameObject &two) // AABB - AABB collision
-// {
-//     // collision x-axis?
-//     bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
-//         two.Position.x + two.Size.x >= one.Position.x;
-//     // collision y-axis?
-//     bool collisionY = one.Position.y + one.Size.y >= two.Position.y &&
-//         two.Position.y + two.Size.y >= one.Position.y;
-//     // collision only if on both axes
-//     return collisionX && collisionY;
-// }
+bool CheckCollision(GameObject &one, GameObject &two) // AABB - AABB collision
+{
+    // collision x-axis?
+    bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
+        two.Position.x + two.Size.x >= one.Position.x;
+    // collision y-axis?
+    bool collisionY = one.Position.y + one.Size.y >= two.Position.y &&
+        two.Position.y + two.Size.y >= one.Position.y;
+    // collision only if on both axes
+    return collisionX && collisionY;
+}
 
 // Collision CheckCollision(BallObject &one, GameObject &two) // AABB - Circle collision
 // {

@@ -15,6 +15,7 @@
 #include <GLFW/glfw3.h>
 
 #include "maze.h"
+#include "power_up.h"
 // #include "power_up.h"
 
 // Represents the current state of the game
@@ -59,6 +60,7 @@ public:
     // std::vector<PowerUp>    PowerUps;
     unsigned int            Level;
     unsigned int            Lives;
+    unsigned int            Score;
     // constructor/destructor
     Game(unsigned int width, unsigned int height);
     ~Game();

@@ -9,6 +9,7 @@ CMakeFiles/TheOtherGuy.dir/source/game.cpp.o
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/power_up.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
@@ -29,6 +30,7 @@ CMakeFiles/TheOtherGuy.dir/source/main.cpp.o
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/main.cpp
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/power_up.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
@@ -39,6 +41,16 @@ CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.cpp
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h
+CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o
+ ../libraries/glad/include/KHR/khrplatform.h
+ ../libraries/glad/include/glad/glad.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/power_up.cpp
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
@@ -65,6 +77,7 @@ CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h
 CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/stb_image.cpp
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/stb_image.h
 CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h

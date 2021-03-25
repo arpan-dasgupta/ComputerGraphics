@@ -303,6 +303,33 @@ source/maze.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/maze.cpp.s
 .PHONY : source/maze.cpp.s
 
+source/power_up.o: source/power_up.cpp.o
+
+.PHONY : source/power_up.o
+
+# target to build an object file
+source/power_up.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o
+.PHONY : source/power_up.cpp.o
+
+source/power_up.i: source/power_up.cpp.i
+
+.PHONY : source/power_up.i
+
+# target to preprocess a source file
+source/power_up.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.i
+.PHONY : source/power_up.cpp.i
+
+source/power_up.s: source/power_up.cpp.s
+
+.PHONY : source/power_up.s
+
+# target to generate assembly for a file
+source/power_up.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.s
+.PHONY : source/power_up.cpp.s
+
 source/resource_manager.o: source/resource_manager.cpp.o
 
 .PHONY : source/resource_manager.o
@@ -464,6 +491,9 @@ help:
 	@echo "... source/maze.o"
 	@echo "... source/maze.i"
 	@echo "... source/maze.s"
+	@echo "... source/power_up.o"
+	@echo "... source/power_up.i"
+	@echo "... source/power_up.s"
 	@echo "... source/resource_manager.o"
 	@echo "... source/resource_manager.i"
 	@echo "... source/resource_manager.s"

@@ -334,9 +334,46 @@ void Maze::init()
     }
 
     int playerInitVertex = rand()%vertexPositions.size();
+    while(playerInitVertex==0)
+    {
+        playerInitVertex = rand()%vertexPositions.size();
+    }
+    int pow1 = rand()%vertexPositions.size();
+    while(pow1==0 || pow1==playerInitVertex)
+    {
+        pow1 = rand()%vertexPositions.size();
+    }
+    int pow2 = rand()%vertexPositions.size();
+    while(pow2==0 || pow2==pow1 || pow2==playerInitVertex)
+    {
+        pow2 = rand()%vertexPositions.size();
+    }
+
     playerInitPos = glm::vec2(vertexPositions[playerInitVertex].first,vertexPositions[playerInitVertex].second);
     // this->Walls.push_back(GameObject(playerInitPos, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
     this->Position = -(playerInitPos-glm::vec2(400.0,400.0));
+
+
+    powerUp1Pos = glm::vec2(vertexPositions[pow1].first,vertexPositions[pow1].second);
+    // this->Walls.push_back(GameObject(playerInitPos, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+    // this->powerUp1Pos = -(powerUp1Pos-glm::vec2(400.0,400.0));
+    this->powerUp1Pos = this->Position + powerUp1Pos;
+
+    powerUp2Pos = glm::vec2(vertexPositions[pow2].first,vertexPositions[pow2].second);
+    // this->Walls.push_back(GameObject(playerInitPos, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+    this->powerUp2Pos = this->Position + powerUp2Pos;
+
+    int epos = 0;
+    exitPos = glm::vec2(vertexPositions[epos].first,vertexPositions[epos].second);
+    // this->Walls.push_back(GameObject(playerInitPos, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+    this->exitPos = this->Position + exitPos);
     // exit(0);
     // this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));
+
+    for(int i=0;i<vertexPositions.size();i++)
+    {
+        if(i!=pow2 && i!=pow1 && i!=playerInitVertex && i!=0)
+            availableRooms.push_back(vertexPositions[i]);
+    }
+
 }
