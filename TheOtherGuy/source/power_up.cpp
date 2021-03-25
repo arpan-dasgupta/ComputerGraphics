@@ -16,7 +16,7 @@ void PowerUp::Draw(SpriteRenderer &renderer)
         // if (!tile.Destroyed)
         tile.Offset = this->Position;
         tile.Draw(renderer);
-        std::cout<<this->Position.x<<" "<<this->Position.y<<"\n";
+        // std::cout<<this->Position.x<<" "<<this->Position.y<<"\n";
     }
 }
 

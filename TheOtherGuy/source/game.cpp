@@ -77,10 +77,10 @@ void Game::Init()
     // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/awesomeface.png").c_str(), true, "face");
     ResourceManager::LoadTexture("../assets/textures/block.png", false, "block");
     ResourceManager::LoadTexture("../assets/textures/grey.jpg", false, "grey");
-    ResourceManager::LoadTexture("../assets/textures/amongus_4.png", false, "player_1");
-    ResourceManager::LoadTexture("../assets/textures/coin2.png", false, "coin");
-    ResourceManager::LoadTexture("../assets/textures/star2.png", false, "star");
-    ResourceManager::LoadTexture("../assets/textures/door.png", false, "door");
+    ResourceManager::LoadTexture("../assets/textures/amongus_1.png", true, "player_1");
+    ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
+    ResourceManager::LoadTexture("../assets/textures/star2.png", true, "star");
+    ResourceManager::LoadTexture("../assets/textures/door.png", true, "door");
 
     // // set render-specific controls
     Shader sh = Shader(ResourceManager::GetShader("sprite"));
