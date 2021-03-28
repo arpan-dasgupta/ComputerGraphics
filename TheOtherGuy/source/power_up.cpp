@@ -90,6 +90,14 @@ void PowerUp::init()
     }
     else if(ObjectType==2)
     {
+        this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("button")));
+    }
+    else if(ObjectType==3)
+    {
         this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("coin")));
+    }
+    else if(ObjectType==4)
+    {
+        this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("danger")));
     }
 }

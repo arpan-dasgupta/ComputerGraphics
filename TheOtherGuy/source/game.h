@@ -57,6 +57,7 @@ public:
     bool                    KeysProcessed[1024];
     unsigned int            Width, Height;
     std::vector<PowerUp*>   powerups;
+    int                     tasks;
     // Maze                    maze;
     // std::vector<PowerUp>    PowerUps;
     unsigned int            Level;

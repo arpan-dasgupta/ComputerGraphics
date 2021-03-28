@@ -63,44 +63,24 @@ void Game::Init()
 {
     // load shaders
     ResourceManager::LoadShader("../source/sprite.vs", "../source/sprite.fs", nullptr, "sprite");
-    // ResourceManager::LoadShader("particle.vs", "particle.fs", nullptr, "particle");
-    // ResourceManager::LoadShader("post_processing.vs", "post_processing.fs", nullptr, "postprocessing");
+
     // // configure shaders
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->Width), static_cast<float>(this->Height), 0.0f, -1.0f, 1.0f);
     ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
     ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-    // ResourceManager::GetShader("particle").Use().SetInteger("sprite", 0);
-    // ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
 
-    // // load textures
-    // ResourceManager::LoadTexture(FileSystem::getPath("assets/textures/background.jpg").c_str(), false, "background");
-    // ResourceManager::LoadTexture(FileSystem::getPath("resources/textures/awesomeface.png").c_str(), true, "face");
     ResourceManager::LoadTexture("../assets/textures/block.png", false, "block");
     ResourceManager::LoadTexture("../assets/textures/grey.jpg", false, "grey");
-    ResourceManager::LoadTexture("../assets/textures/amongus_1.png", true, "player_1");
+    ResourceManager::LoadTexture("../assets/textures/among_us_0.png", true, "player_1");
     ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/star2.png", true, "star");
     ResourceManager::LoadTexture("../assets/textures/door.png", true, "door");
+    ResourceManager::LoadTexture("../assets/textures/button3.png", true, "button");
+    ResourceManager::LoadTexture("../assets/textures/danger1.png", true, "danger");
 
     // // set render-specific controls
     Shader sh = Shader(ResourceManager::GetShader("sprite"));
     Renderer = new SpriteRenderer(sh);
-    // Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
-    // Particles = new ParticleGenerator(ResourceManager::GetShader("particle"), ResourceManager::GetTexture("particle"), 500);
-    // Effects = new PostProcessor(ResourceManager::GetShader("postprocessing"), this->Width, this->Height);
-    // Text = new TextRenderer(this->Width, this->Height);
-    // Text->Load(FileSystem::getPath("resources/fonts/OCRAEXT.TTF").c_str(), 24);
-
-    // // load levels
-    // GameLevel one; one.Load(FileSystem::getPath("resources/levels/one.lvl").c_str(), this->Width, this->Height / 2);
-    // GameLevel two; two.Load(FileSystem::getPath("resources/levels/two.lvl").c_str(), this->Width, this->Height /2 );
-    // GameLevel three; three.Load(FileSystem::getPath("resources/levels/three.lvl").c_str(), this->Width, this->Height / 2);
-    // GameLevel four; four.Load(FileSystem::getPath("resources/levels/four.lvl").c_str(), this->Width, this->Height / 2);
-    // this->Levels.push_back(one);
-    // this->Levels.push_back(two);
-    // this->Levels.push_back(three);
-    // this->Levels.push_back(four);
-    // this->Level = 0;
 
     // // load maze
     glm::vec2 mazePos = glm::vec2(CENTER.x, CENTER.y);
@@ -118,20 +98,80 @@ void Game::Init()
     powerups.push_back(p2);
     powerups.push_back(p3);
 
-    // // // configure game objects
-    // glm::vec2 playerPos = glm::vec2(this->Width / 2.0f - PLAYER_SIZE.x / 2.0f, this->Height - PLAYER_SIZE.y);
+    // configure game objects
     glm::vec2 playerPos = glm::vec2(CENTER.x, CENTER.y);
     Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("player_1"));
+    tasks = 0;
 
-    // glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2.0f - BALL_RADIUS, -BALL_RADIUS * 2.0f);
-    // Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
+}
 
-    // // audio
-    // SoundEngine->play2D(FileSystem::getPath("resources/audio/breakout.mp3").c_str(), true);
+
+bool CheckCollision(GameObject one, GameObject two) // AABB - AABB collision
+{
+    // collision x-axis?
+    bool collisionX = one.Position.x + one.Size.x + one.Offset.x >= two.Position.x + two.Offset.x &&
+        two.Position.x + two.Size.x + two.Offset.x >= one.Position.x + one.Offset.x;
+    // collision y-axis?
+    bool collisionY = one.Position.y + one.Size.y + one.Offset.y >= two.Position.y + two.Offset.y &&
+        two.Position.y + two.Size.y + two.Offset.y >= one.Position.y + one.Offset.y;
+    // collision only if on both axes
+    return collisionX && collisionY;
 }
 
 void Game::Update(float dt)
 {
+    int flagg = 0;
+    std::vector<int> todel;
+    int cnt=0;
+    for(auto pp : powerups)
+    {
+        if(CheckCollision(*Player,pp->Walls[0]))
+        {
+            if(tasks==2 && pp->ObjectType==0)
+            {
+                this->State = GAME_WIN;
+                exit(0);
+                return;
+            }
+            if(pp->ObjectType==1)
+            {
+                tasks++;
+            }
+            if(pp->ObjectType==2)
+            {
+                flagg=1;
+                tasks++;
+            }
+            if(pp->ObjectType>2)
+            {
+                this->Score += (pp->ObjectType==3)?50:-50;
+            }
+            if(pp->ObjectType!=0)
+                todel.push_back(cnt);
+        }
+        cnt++;
+    }
+    for(int i=0;i<todel.size();i++)
+    {
+        int pp = todel[i];
+        delete(powerups[pp]);
+        powerups.erase(powerups.begin()+pp);
+    }
+    if(flagg==1)
+    {
+        glm::vec2 pos1 = glm::vec2(maze->availableRooms[0].first + maze->Position.x,maze->availableRooms[0].second + maze->Position.y);
+        glm::vec2 pos2 = glm::vec2(maze->availableRooms[1].first + maze->Position.x,maze->availableRooms[1].second + maze->Position.y);
+        glm::vec2 pos3 = glm::vec2(maze->availableRooms[2].first + maze->Position.x,maze->availableRooms[2].second + maze->Position.y);
+        PowerUp *p1 = new PowerUp(pos1, 3);
+        PowerUp *p2 = new PowerUp(pos2, 3);
+        PowerUp *p3 = new PowerUp(pos3, 4);
+        p1->init();
+        p2->init();
+        p3->init();
+        powerups.push_back(p1);
+        powerups.push_back(p2);
+        powerups.push_back(p3);
+    }
     // // update objects
     // Ball->Move(dt, this->Width);
     // // check for collisions
@@ -560,18 +600,6 @@ void Game::Render()
 //         SoundEngine->play2D(FileSystem::getPath("resources/audio/bleep.wav").c_str(), false);
 //     }
 // }
-
-bool CheckCollision(GameObject &one, GameObject &two) // AABB - AABB collision
-{
-    // collision x-axis?
-    bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
-        two.Position.x + two.Size.x >= one.Position.x;
-    // collision y-axis?
-    bool collisionY = one.Position.y + one.Size.y >= two.Position.y &&
-        two.Position.y + two.Size.y >= one.Position.y;
-    // collision only if on both axes
-    return collisionX && collisionY;
-}
 
 // Collision CheckCollision(BallObject &one, GameObject &two) // AABB - Circle collision
 // {
