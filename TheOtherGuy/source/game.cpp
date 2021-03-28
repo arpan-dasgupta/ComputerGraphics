@@ -24,7 +24,7 @@
 // #include "ball_object.h"
 // #include "particle_generator.h"
 // #include "post_processor.h"
-// #include "text_renderer.h"
+#include "text_renderer.h"
 
 
 // Game-related State data
@@ -36,7 +36,7 @@ Maze              *maze;
 // ParticleGenerator *Particles;
 // PostProcessor     *Effects;
 // ISoundEngine      *SoundEngine = createIrrKlangDevice();
-// TextRenderer      *Text;
+TextRenderer      *Text;
 
 float ShakeTime = 0.0f;
 
@@ -81,6 +81,8 @@ void Game::Init()
     // // set render-specific controls
     Shader sh = Shader(ResourceManager::GetShader("sprite"));
     Renderer = new SpriteRenderer(sh);
+    Text = new TextRenderer(this->Width, this->Height);
+    Text->Load("../assets/fonts/OCRAEXT.TTF", 24);
 
     // // load maze
     glm::vec2 mazePos = glm::vec2(CENTER.x, CENTER.y);
@@ -172,6 +174,7 @@ void Game::Update(float dt)
         powerups.push_back(p2);
         powerups.push_back(p3);
     }
+    
     // // update objects
     // Ball->Move(dt, this->Width);
     // // check for collisions
@@ -316,6 +319,10 @@ void Game::Render()
         }
 
         Player->Draw(*Renderer);
+
+        std::stringstream ss;
+        ss << this->Score;
+        Text->RenderText("Score:" + ss.str(), 80.0f, 80.0f, 1.0f);
 
         // std::cout<<powerups.size()<<'\n';
         // exit(0);

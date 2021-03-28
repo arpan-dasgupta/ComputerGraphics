@@ -12,6 +12,7 @@ CMakeFiles/TheOtherGuy.dir/source/game.cpp.o: ../source/power_up.h
 CMakeFiles/TheOtherGuy.dir/source/game.cpp.o: ../source/resource_manager.h
 CMakeFiles/TheOtherGuy.dir/source/game.cpp.o: ../source/shader.h
 CMakeFiles/TheOtherGuy.dir/source/game.cpp.o: ../source/sprite_renderer.h
+CMakeFiles/TheOtherGuy.dir/source/game.cpp.o: ../source/text_renderer.h
 CMakeFiles/TheOtherGuy.dir/source/game.cpp.o: ../source/texture.h
 
 CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.o: ../libraries/glad/include/KHR/khrplatform.h
@@ -77,6 +78,14 @@ CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o: ../source/texture.h
 
 CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o: ../source/stb_image.cpp
 CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o: ../source/stb_image.h
+
+CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o: ../libraries/glad/include/KHR/khrplatform.h
+CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o: ../libraries/glad/include/glad/glad.h
+CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o: ../source/resource_manager.h
+CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o: ../source/shader.h
+CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o: ../source/text_renderer.cpp
+CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o: ../source/text_renderer.h
+CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o: ../source/texture.h
 
 CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o: ../libraries/glad/include/glad/glad.h

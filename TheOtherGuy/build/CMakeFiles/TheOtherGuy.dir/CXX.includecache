@@ -97,6 +97,8 @@ game_object.h
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.h
 power_up.h
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/power_up.h
+text_renderer.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/text_renderer.h
 
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.h
 vector
@@ -178,6 +180,18 @@ glad/glad.h
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
+-
+texture.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h
+shader.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
+
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/text_renderer.h
+map
+-
+glad/glad.h
+-
+glm/glm.hpp
 -
 texture.h
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h

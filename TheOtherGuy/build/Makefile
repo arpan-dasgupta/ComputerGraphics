@@ -438,6 +438,33 @@ source/stb_image.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.s
 .PHONY : source/stb_image.cpp.s
 
+source/text_renderer.o: source/text_renderer.cpp.o
+
+.PHONY : source/text_renderer.o
+
+# target to build an object file
+source/text_renderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o
+.PHONY : source/text_renderer.cpp.o
+
+source/text_renderer.i: source/text_renderer.cpp.i
+
+.PHONY : source/text_renderer.i
+
+# target to preprocess a source file
+source/text_renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.i
+.PHONY : source/text_renderer.cpp.i
+
+source/text_renderer.s: source/text_renderer.cpp.s
+
+.PHONY : source/text_renderer.s
+
+# target to generate assembly for a file
+source/text_renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheOtherGuy.dir/build.make CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.s
+.PHONY : source/text_renderer.cpp.s
+
 source/texture.o: source/texture.cpp.o
 
 .PHONY : source/texture.o
@@ -506,6 +533,9 @@ help:
 	@echo "... source/stb_image.o"
 	@echo "... source/stb_image.i"
 	@echo "... source/stb_image.s"
+	@echo "... source/text_renderer.o"
+	@echo "... source/text_renderer.i"
+	@echo "... source/text_renderer.s"
 	@echo "... source/texture.o"
 	@echo "... source/texture.i"
 	@echo "... source/texture.s"

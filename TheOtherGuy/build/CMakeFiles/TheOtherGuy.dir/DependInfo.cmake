@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/stb_image.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/text_renderer.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

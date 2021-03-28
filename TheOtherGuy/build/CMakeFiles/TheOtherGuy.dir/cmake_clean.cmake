@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o"
   "CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o"
   "CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o"
+  "CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o"
   "CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o"
   "TheOtherGuy"
   "TheOtherGuy.pdb"

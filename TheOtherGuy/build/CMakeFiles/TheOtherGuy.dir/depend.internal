@@ -13,6 +13,7 @@ CMakeFiles/TheOtherGuy.dir/source/game.cpp.o
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/text_renderer.h
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h
 CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.o
  ../libraries/glad/include/KHR/khrplatform.h
@@ -78,6 +79,14 @@ CMakeFiles/TheOtherGuy.dir/source/sprite_renderer.cpp.o
 CMakeFiles/TheOtherGuy.dir/source/stb_image.cpp.o
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/stb_image.cpp
  /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/stb_image.h
+CMakeFiles/TheOtherGuy.dir/source/text_renderer.cpp.o
+ ../libraries/glad/include/KHR/khrplatform.h
+ ../libraries/glad/include/glad/glad.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/text_renderer.cpp
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/text_renderer.h
+ /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/texture.h
 CMakeFiles/TheOtherGuy.dir/source/texture.cpp.o
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
