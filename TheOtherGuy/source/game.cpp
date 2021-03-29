@@ -55,12 +55,14 @@ void Game::Init()
     ResourceManager::LoadTexture("../assets/textures/among_us_0.png", true, "player_1");
     ResourceManager::LoadTexture("../assets/textures/among_us_1.png", true, "player_2");
     ResourceManager::LoadTexture("../assets/textures/among_us_2.png", true, "player_3");
+    ResourceManager::LoadTexture("../assets/textures/among_us_3.png", true, "player_4");
+    ResourceManager::LoadTexture("../assets/textures/among_us_4.png", true, "player_5");
     ResourceManager::LoadTexture("../assets/textures/amongus_3.png", true, "enemy");
-    ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
+    ResourceManager::LoadTexture("../assets/textures/coin3.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/star2.png", true, "star");
     ResourceManager::LoadTexture("../assets/textures/door.png", true, "door");
-    ResourceManager::LoadTexture("../assets/textures/button1.jpg", false, "button");
-    ResourceManager::LoadTexture("../assets/textures/danger1.png", true, "danger");
+    ResourceManager::LoadTexture("../assets/textures/button4.png", true, "button");
+    ResourceManager::LoadTexture("../assets/textures/danger2.png", true, "danger");
 
     // // set render-specific controls
     Shader sh = Shader(ResourceManager::GetShader("sprite"));
@@ -198,6 +200,9 @@ void Game::Update(float dt)
         this->State = GAME_LOSS;
         return;
     }
+    Player->moved = std::max(Player->moved-1,0);
+    if(Player->moved==0)
+        Player->active = false;
 }
 
 
@@ -237,9 +242,11 @@ void Game::ProcessInput(float dt)
         // std::cout<<"OK " << this->State<<" " <<GAME_ACTIVE<<" ";
         glm::vec2 curmaze = maze->Position;
         float velocity = MAZE_VELOCITY * dt;
+        bool didMove=0;
         // move playerboard
         if (this->Keys[GLFW_KEY_A])
         {
+            didMove = 1;
             if (maze->Position.x - CENTER.x<= maze->mazeSize.x && maze->checkInside(Player->Position+glm::vec2(-velocity,0.0) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(-velocity,PLAYER_SIZE.y) - maze->Position))
             {
                 maze->Position.x += velocity;
@@ -247,6 +254,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_D])
         {
+            didMove = 1;
             if (maze->Position.x - CENTER.x>= -maze->mazeSize.x && maze->checkInside(Player->Position+glm::vec2(velocity + PLAYER_SIZE.x,PLAYER_SIZE.y) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(velocity + PLAYER_SIZE.x,0.0) - maze->Position))
             {
                 maze->Position.x -= velocity;
@@ -254,6 +262,7 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_S])
         {
+            didMove = 1;
             if (maze->Position.y - CENTER.y >= -maze->mazeSize.y && maze->checkInside(Player->Position+glm::vec2(PLAYER_SIZE.x,velocity+PLAYER_SIZE.y) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(0.0,PLAYER_SIZE.y + velocity) - maze->Position))
             {
                 maze->Position.y -= velocity;
@@ -261,10 +270,16 @@ void Game::ProcessInput(float dt)
         }
         if (this->Keys[GLFW_KEY_W])
         {
+            didMove = 1;
             if (maze->Position.y - CENTER.y <= maze->mazeSize.y && maze->checkInside(Player->Position+glm::vec2(0.0, -velocity) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(PLAYER_SIZE.x,-velocity) - maze->Position))
             {
                 maze->Position.y += velocity;
             }
+        }
+        if(didMove)
+        {
+            Player->moved = 15;
+            Player->active = true;
         }
         // if (this->Keys[GLFW_KEY_SPACE])
         //     Ball->Stuck = false;
@@ -344,64 +359,6 @@ void Game::Render()
 //     Ball->PassThrough = Ball->Sticky = false;
 //     Player->Color = glm::vec3(1.0f);
 //     Ball->Color = glm::vec3(1.0f);
-// }
-
-
-// // powerups
-// bool IsOtherPowerUpActive(std::vector<PowerUp> &powerUps, std::string type);
-
-// void Game::UpdatePowerUps(float dt)
-// {
-//     for (PowerUp &powerUp : this->PowerUps)
-//     {
-//         powerUp.Position += powerUp.Velocity * dt;
-//         if (powerUp.Activated)
-//         {
-//             powerUp.Duration -= dt;
-
-//             if (powerUp.Duration <= 0.0f)
-//             {
-//                 // remove powerup from list (will later be removed)
-//                 powerUp.Activated = false;
-//                 // deactivate effects
-//                 if (powerUp.Type == "sticky")
-//                 {
-//                     if (!IsOtherPowerUpActive(this->PowerUps, "sticky"))
-//                     {	// only reset if no other PowerUp of type sticky is active
-//                         Ball->Sticky = false;
-//                         Player->Color = glm::vec3(1.0f);
-//                     }
-//                 }
-//                 else if (powerUp.Type == "pass-through")
-//                 {
-//                     if (!IsOtherPowerUpActive(this->PowerUps, "pass-through"))
-//                     {	// only reset if no other PowerUp of type pass-through is active
-//                         Ball->PassThrough = false;
-//                         Ball->Color = glm::vec3(1.0f);
-//                     }
-//                 }
-//                 else if (powerUp.Type == "confuse")
-//                 {
-//                     if (!IsOtherPowerUpActive(this->PowerUps, "confuse"))
-//                     {	// only reset if no other PowerUp of type confuse is active
-//                         Effects->Confuse = false;
-//                     }
-//                 }
-//                 else if (powerUp.Type == "chaos")
-//                 {
-//                     if (!IsOtherPowerUpActive(this->PowerUps, "chaos"))
-//                     {	// only reset if no other PowerUp of type chaos is active
-//                         Effects->Chaos = false;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     // Remove all PowerUps from vector that are destroyed AND !activated (thus either off the map or finished)
-//     // Note we use a lambda expression to remove each PowerUp which is destroyed and not activated
-//     this->PowerUps.erase(std::remove_if(this->PowerUps.begin(), this->PowerUps.end(),
-//         [](const PowerUp &powerUp) { return powerUp.Destroyed && !powerUp.Activated; }
-//     ), this->PowerUps.end());
 // }
 
 // bool ShouldSpawn(unsigned int chance)
@@ -590,27 +547,4 @@ void Game::Render()
 //         return std::make_tuple(true, VectorDirection(difference), difference);
 //     else
 //         return std::make_tuple(false, UP, glm::vec2(0.0f, 0.0f));
-// }
-
-// // calculates which direction a vector is facing (N,E,S or W)
-// Direction VectorDirection(glm::vec2 target)
-// {
-//     glm::vec2 compass[] = {
-//         glm::vec2(0.0f, 1.0f),	// up
-//         glm::vec2(1.0f, 0.0f),	// right
-//         glm::vec2(0.0f, -1.0f),	// down
-//         glm::vec2(-1.0f, 0.0f)	// left
-//     };
-//     float max = 0.0f;
-//     unsigned int best_match = -1;
-//     for (unsigned int i = 0; i < 4; i++)
-//     {
-//         float dot_product = glm::dot(glm::normalize(target), compass[i]);
-//         if (dot_product > max)
-//         {
-//             max = dot_product;
-//             best_match = i;
-//         }
-//     }
-//     return (Direction)best_match;
 // }

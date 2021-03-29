@@ -82,23 +82,23 @@ void PowerUp::init()
     this->active = true;
     if(ObjectType==0)
     {
-        this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("door")));
+        this->Walls.push_back(GameObject(glm::vec2(-25.0,-25.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("door")));
     }
     else if(ObjectType==1)
     {
-        this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("star")));
+        this->Walls.push_back(GameObject(glm::vec2(-25.0,-25.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("star")));
     }
     else if(ObjectType==2)
     {
-        this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("button")));
+        this->Walls.push_back(GameObject(glm::vec2(-25.0,-25.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("button")));
     }
     else if(ObjectType==3)
     {
-        this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("coin")));
+        this->Walls.push_back(GameObject(glm::vec2(-25.0,-25.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("coin")));
     }
     else if(ObjectType==4)
     {
-        this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("danger")));
+        this->Walls.push_back(GameObject(glm::vec2(-25.0,-25.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("danger")));
     }
     for (GameObject &tile : this->Walls)
     {
