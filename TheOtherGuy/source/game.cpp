@@ -29,7 +29,8 @@
 
 // Game-related State data
 SpriteRenderer    *Renderer;
-GameObject        *Player;
+// GameObject        *Player;
+GameCharacter         *Player, *Enemy;
 Maze              *maze;
 // PowerUp                 *powerups;
 // BallObject        *Ball;
@@ -75,7 +76,7 @@ void Game::Init()
     ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/star2.png", true, "star");
     ResourceManager::LoadTexture("../assets/textures/door.png", true, "door");
-    ResourceManager::LoadTexture("../assets/textures/button3.png", true, "button");
+    ResourceManager::LoadTexture("../assets/textures/button1.jpg", false, "button");
     ResourceManager::LoadTexture("../assets/textures/danger1.png", true, "danger");
 
     // // set render-specific controls
@@ -89,6 +90,15 @@ void Game::Init()
     maze =  new Maze(mazePos);
     maze->init();
 
+    // configure game objects
+    glm::vec2 playerPos = glm::vec2(CENTER.x, CENTER.y);
+    // Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("player_1"));
+    Player = new GameCharacter(playerPos, 0);
+    // std::cout<<powerups.size()<<'\n';
+    Player->init();
+    // exit(0);
+    // std::cout<<powerups.size()<<'\n';
+
     glm::vec2 exitPos = maze->exitPos, but1 = maze->powerUp1Pos, but2 = maze->powerUp2Pos;
     PowerUp *p1 = new PowerUp(exitPos, 0);
     PowerUp *p2 = new PowerUp(but1, 1);
@@ -99,12 +109,11 @@ void Game::Init()
     powerups.push_back(p1);
     powerups.push_back(p2);
     powerups.push_back(p3);
+    // std::cout<<p1->Walls[0].Position.x<<" "<<p1->Walls[0].Position.y<<" "<<p1->Walls[0].Offset.x<<" "<<p1->Walls[0].Offset.y<<" "<<p1->Walls[0].Size.x<<" "<<p1->Walls[0].Size.y<<'\n';
 
-    // configure game objects
-    glm::vec2 playerPos = glm::vec2(CENTER.x, CENTER.y);
-    Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("player_1"));
+
+    
     tasks = 0;
-
     this->Health = 100;
     this->Score = 0;
     this->Lights = 1;
@@ -115,6 +124,8 @@ void Game::Init()
 
 bool CheckCollision(GameObject one, GameObject two) // AABB - AABB collision
 {
+    // std::cout<<one.Position.x<<" "<<one.Position.y<<" "<<one.Offset.x<<" "<<one.Offset.y<<" "<<one.Size.x<<" "<<one.Size.y<<'\n';
+    // std::cout<<two.Position.x<<" "<<two.Position.y<<" "<<two.Offset.x<<" "<<two.Offset.y<<" "<<two.Size.x<<" "<<two.Size.y<<'\n';
     // collision x-axis?
     bool collisionX = one.Position.x + one.Size.x + one.Offset.x >= two.Position.x + two.Offset.x &&
         two.Position.x + two.Size.x + two.Offset.x >= one.Position.x + one.Offset.x;
@@ -127,17 +138,23 @@ bool CheckCollision(GameObject one, GameObject two) // AABB - AABB collision
 
 void Game::Update(float dt)
 {
+    if(this->State != GAME_ACTIVE)
+        return;
     int flagg = 0;
     std::vector<int> todel;
     int cnt=0;
     for(auto pp : powerups)
     {
-        if(CheckCollision(*Player,pp->Walls[0]))
+        // if(CheckCollision(*Player,pp->Walls[0]))
+        // std::cout<<pp->Walls[0].Position.x<<" "<<pp->Walls[0].Position.y<<" "<<pp->Walls[0].Offset.x<<" "<<pp->Walls[0].Offset.y<<" "<<pp->Walls[0].Size.x<<" "<<pp->Walls[0].Size.y<<'\n';
+        if(CheckCollision(Player->Walls[0],pp->Walls[0]))
         {
+        // exit(0);
+        // std::cout<<"OK\n";
             if(tasks==2 && pp->ObjectType==0)
             {
                 this->State = GAME_WIN;
-                exit(0);
+                // exit(0);
                 return;
             }
             if(pp->ObjectType==1)
@@ -160,12 +177,15 @@ void Game::Update(float dt)
         }
         cnt++;
     }
+    // std::cout<<"OKK\n";
     for(int i=0;i<todel.size();i++)
     {
+        // std::cout<<todel[i]<<'\n';
         int pp = todel[i];
         delete(powerups[pp]);
         powerups.erase(powerups.begin()+pp);
     }
+    // std::cout<<"OKKK\n";
     if(flagg==1)
     {
         glm::vec2 pos1 = glm::vec2(maze->availableRooms[0].first + maze->Position.x,maze->availableRooms[0].second + maze->Position.y);
@@ -189,9 +209,10 @@ void Game::Update(float dt)
     if(this->Health<=0)
     {
         this->State = GAME_LOSS;
-        exit(0);
+        // exit(0);
         return;
     }
+    // std::cout<<"OKKKK\n";
     
     // // update objects
     // Ball->Move(dt, this->Width);
@@ -255,15 +276,13 @@ void Game::ProcessInput(float dt)
     //         this->KeysProcessed[GLFW_KEY_S] = true;
     //     }
     // }
-    // if (this->State == GAME_WIN)
-    // {
-    //     if (this->Keys[GLFW_KEY_ENTER])
-    //     {
-    //         this->KeysProcessed[GLFW_KEY_ENTER] = true;
-    //         Effects->Chaos = false;
-    //         this->State = GAME_MENU;
-    //     }
-    // }
+    if (this->State == GAME_WIN || this->State == GAME_LOSS)
+    {
+        if (this->Keys[GLFW_KEY_ENTER])
+        {
+            exit(0);
+        }
+    }
     if (this->State == GAME_ACTIVE)
     {
         // std::cout<<"OK " << this->State<<" " <<GAME_ACTIVE<<" ";
@@ -318,17 +337,8 @@ void Game::ProcessInput(float dt)
 
 void Game::Render()
 {
-    if (this->State == GAME_ACTIVE || this->State == GAME_MENU || this->State == GAME_WIN)
+    if (this->State == GAME_ACTIVE || this->State == GAME_MENU)
     {
-        // std::cout<<"OK ";
-        // // begin rendering to postprocessing framebuffer
-        // Effects->BeginRender();
-
-        // draw background
-        // Renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0.0f, 0.0f), glm::vec2(this->Width, this->Height), 0.0f);
-        // draw level
-        // this->Levels[this->Level].Draw(*Renderer);
-        // draw player
         maze->Draw(*Renderer);   
 
         for(auto aa: powerups)
@@ -347,35 +357,22 @@ void Game::Render()
         Text->RenderText((this->Lights)?"Lights: On":"Lights: Off", 20.0f, 80.0f, 1.0f);
         ss4 << this->Score;
         Text->RenderText("Time: " + ss4.str(), 20.0f, 110.0f, 1.0f);
-        // std::cout<<powerups.size()<<'\n';
-        // exit(0);
-        // // draw PowerUps
-        // for (PowerUp &powerUp : this->PowerUps)
-        //     if (!powerUp.Destroyed)
-        //         powerUp.Draw(*Renderer);
-        // // draw particles	
-        // Particles->Draw();
-        // draw ball
-        // Texture2D tt = ResourceManager::GetTexture("block");
-        // Renderer->DrawSprite(tt, glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 100.0f), 45.0f, glm::vec3(0.0f, 0.0f, 0.0f));         
-        // // end rendering to postprocessing framebuffer
-        // Effects->EndRender();
-        // // render postprocessing quad
-        // Effects->Render(glfwGetTime());
-        // // render text (don't include in postprocessing)
-        // std::stringstream ss; ss << this->Lives;
-        // Text->RenderText("Lives:" + ss.str(), 5.0f, 5.0f, 1.0f);
     }
     // if (this->State == GAME_MENU)
     // {
     //     Text->RenderText("Press ENTER to start", 250.0f, this->Height / 2.0f, 1.0f);
     //     Text->RenderText("Press W or S to select level", 245.0f, this->Height / 2.0f + 20.0f, 0.75f);
     // }
-    // if (this->State == GAME_WIN)
-    // {
-    //     Text->RenderText("You WON!!!", 320.0f, this->Height / 2.0f - 20.0f, 1.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-    //     Text->RenderText("Press ENTER to retry or ESC to quit", 130.0f, this->Height / 2.0f, 1.0f, glm::vec3(1.0f, 1.0f, 0.0f));
-    // }
+    if (this->State == GAME_WIN)
+    {
+        Text->RenderText("You WON!!!", 320.0f, this->Height / 2.0f - 30.0f, 1.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+        Text->RenderText("Press ESC to quit", 250.0f, this->Height / 2.0f, 1.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+    }
+    if (this->State == GAME_LOSS)
+    {
+        Text->RenderText("You LOST!!!", 320.0f, this->Height / 2.0f - 30.0f, 1.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+        Text->RenderText("Press ESC to quit", 250.0f, this->Height / 2.0f, 1.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+    }
 }
 
 

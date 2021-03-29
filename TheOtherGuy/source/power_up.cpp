@@ -100,4 +100,11 @@ void PowerUp::init()
     {
         this->Walls.push_back(GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0,50.0), ResourceManager::GetTexture("danger")));
     }
+    for (GameObject &tile : this->Walls)
+    {
+        // if (!tile.Destroyed)
+        tile.Offset = this->Position;
+        // tile.Draw(renderer);
+        // std::cout<<this->Position.x<<" "<<this->Position.y<<"\n";
+    }
 }

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game_object.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/game_object.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/main.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/main.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o"
+  "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/player.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/player.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/power_up.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/resource_manager.cpp.o"
   "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/shader.cpp" "/home/arpan/Documents/ComputerGraphics/TheOtherGuy/build/CMakeFiles/TheOtherGuy.dir/source/shader.cpp.o"

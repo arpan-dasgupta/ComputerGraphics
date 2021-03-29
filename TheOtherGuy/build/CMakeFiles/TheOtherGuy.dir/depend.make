@@ -46,6 +46,16 @@ CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o: ../source/shader.h
 CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o: ../source/sprite_renderer.h
 CMakeFiles/TheOtherGuy.dir/source/maze.cpp.o: ../source/texture.h
 
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../libraries/glad/include/KHR/khrplatform.h
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../libraries/glad/include/glad/glad.h
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../source/game_object.h
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../source/maze.h
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../source/player.cpp
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../source/resource_manager.h
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../source/shader.h
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../source/sprite_renderer.h
+CMakeFiles/TheOtherGuy.dir/source/player.cpp.o: ../source/texture.h
+
 CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o: ../libraries/glad/include/glad/glad.h
 CMakeFiles/TheOtherGuy.dir/source/power_up.cpp.o: ../source/game_object.h
