@@ -13,6 +13,7 @@ void GameCharacter::Draw(SpriteRenderer &renderer)
 {
     for (GameObject &tile : this->Walls)
     {
+        // std::cout<<this->ObjectType<<"\n";
         tile.Offset = this->Position;
         tile.Draw(renderer);
     }
@@ -22,7 +23,11 @@ void GameCharacter::init()
 {
     // std::cout<<"OKay\n";
     GameObject gg = GameObject(glm::vec2(0.0,0.0), glm::vec2(50.0f, 60.0f), ResourceManager::GetTexture("player_1"));
-    gg.Offset = glm::vec2(0.0,0.0);
+    if(this->ObjectType==1)
+    {
+        gg = GameObject(glm::vec2(-25.0,-30.0), glm::vec2(50.0f, 60.0f), ResourceManager::GetTexture("enemy"));
+    }
+    gg.Offset = glm::vec2(this->Position);
     this->Walls.push_back(gg);
     
     // exit(0);

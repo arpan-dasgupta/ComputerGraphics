@@ -1,19 +1,6 @@
-/*******************************************************************
-** This code is part of Breakout.
-**
-** Breakout is free software: you can redistribute it and/or modify
-** it under the terms of the CC BY 4.0 license as published by
-** Creative Commons, either version 4 of the License, or (at your
-** option) any later version.
-******************************************************************/
 #include <algorithm>
 #include <sstream>
 #include <iostream>
-
-// #include <learnopengl/filesystem.h>
-
-// #include <irrklang/irrKlang.h>
-// using namespace irrklang;
 
 #include "game.h"
 #include "maze.h"
@@ -21,9 +8,6 @@
 #include "sprite_renderer.h"
 #include "game_object.h"
 #include "power_up.h"
-// #include "ball_object.h"
-// #include "particle_generator.h"
-// #include "post_processor.h"
 #include "text_renderer.h"
 
 
@@ -34,12 +18,7 @@ GameCharacter         *Player, *Enemy;
 Maze              *maze;
 // PowerUp                 *powerups;
 // BallObject        *Ball;
-// ParticleGenerator *Particles;
-// PostProcessor     *Effects;
-// ISoundEngine      *SoundEngine = createIrrKlangDevice();
 TextRenderer      *Text;
-
-float ShakeTime = 0.0f;
 
 
 Game::Game(unsigned int width, unsigned int height) 
@@ -53,6 +32,7 @@ Game::~Game()
     delete Renderer;
     delete Player;
     delete maze;
+    delete Enemy;
     // delete Ball;
     // delete Particles;
     // delete Effects;
@@ -73,6 +53,9 @@ void Game::Init()
     ResourceManager::LoadTexture("../assets/textures/block.png", false, "block");
     ResourceManager::LoadTexture("../assets/textures/grey.jpg", false, "grey");
     ResourceManager::LoadTexture("../assets/textures/among_us_0.png", true, "player_1");
+    ResourceManager::LoadTexture("../assets/textures/among_us_1.png", true, "player_2");
+    ResourceManager::LoadTexture("../assets/textures/among_us_2.png", true, "player_3");
+    ResourceManager::LoadTexture("../assets/textures/amongus_3.png", true, "enemy");
     ResourceManager::LoadTexture("../assets/textures/coin1.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/star2.png", true, "star");
     ResourceManager::LoadTexture("../assets/textures/door.png", true, "door");
@@ -94,7 +77,6 @@ void Game::Init()
     glm::vec2 playerPos = glm::vec2(CENTER.x, CENTER.y);
     // Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("player_1"));
     Player = new GameCharacter(playerPos, 0);
-    // std::cout<<powerups.size()<<'\n';
     Player->init();
     // exit(0);
     // std::cout<<powerups.size()<<'\n';
@@ -111,14 +93,14 @@ void Game::Init()
     powerups.push_back(p3);
     // std::cout<<p1->Walls[0].Position.x<<" "<<p1->Walls[0].Position.y<<" "<<p1->Walls[0].Offset.x<<" "<<p1->Walls[0].Offset.y<<" "<<p1->Walls[0].Size.x<<" "<<p1->Walls[0].Size.y<<'\n';
 
-
+    Enemy = new GameCharacter(exitPos, 1);
+    Enemy->init();
     
     tasks = 0;
     this->Health = 100;
     this->Score = 0;
     this->Lights = 1;
     this->Time = 200; 
-
 }
 
 
@@ -209,46 +191,13 @@ void Game::Update(float dt)
     if(this->Health<=0)
     {
         this->State = GAME_LOSS;
-        // exit(0);
         return;
     }
-    // std::cout<<"OKKKK\n";
-    
-    // // update objects
-    // Ball->Move(dt, this->Width);
-    // // check for collisions
-    // this->DoCollisions();
-    // // update particles
-    // Particles->Update(dt, *Ball, 2, glm::vec2(Ball->Radius / 2.0f));
-    // // update PowerUps
-    // this->UpdatePowerUps(dt);
-    // // reduce shake time
-    // if (ShakeTime > 0.0f)
-    // {
-    //     ShakeTime -= dt;
-    //     if (ShakeTime <= 0.0f)
-    //         Effects->Shake = false;
-    // }
-    // // check loss condition
-    // if (Ball->Position.y >= this->Height) // did ball reach bottom edge?
-    // {
-    //     --this->Lives;
-    //     // did the player lose all his lives? : game over
-    //     if (this->Lives == 0)
-    //     {
-    //         this->ResetLevel();
-    //         this->State = GAME_MENU;
-    //     }
-    //     this->ResetPlayer();
-    // }
-    // // check win condition
-    // if (this->State == GAME_ACTIVE && this->Levels[this->Level].IsCompleted())
-    // {
-    //     this->ResetLevel();
-    //     this->ResetPlayer();
-    //     Effects->Chaos = true;
-    //     this->State = GAME_WIN;
-    // }
+    if(CheckCollision(Player->Walls[0], Enemy->Walls[0]))
+    {
+        this->State = GAME_LOSS;
+        return;
+    }
 }
 
 
@@ -294,8 +243,6 @@ void Game::ProcessInput(float dt)
             if (maze->Position.x - CENTER.x<= maze->mazeSize.x && maze->checkInside(Player->Position+glm::vec2(-velocity,0.0) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(-velocity,PLAYER_SIZE.y) - maze->Position))
             {
                 maze->Position.x += velocity;
-                // if (Ball->Stuck)
-                //     Ball->Position.x -= velocity;
             }
         }
         if (this->Keys[GLFW_KEY_D])
@@ -303,8 +250,6 @@ void Game::ProcessInput(float dt)
             if (maze->Position.x - CENTER.x>= -maze->mazeSize.x && maze->checkInside(Player->Position+glm::vec2(velocity + PLAYER_SIZE.x,PLAYER_SIZE.y) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(velocity + PLAYER_SIZE.x,0.0) - maze->Position))
             {
                 maze->Position.x -= velocity;
-                // if (Ball->Stuck)
-                //     Ball->Position.x += velocity;
             }
         }
         if (this->Keys[GLFW_KEY_S])
@@ -312,8 +257,6 @@ void Game::ProcessInput(float dt)
             if (maze->Position.y - CENTER.y >= -maze->mazeSize.y && maze->checkInside(Player->Position+glm::vec2(PLAYER_SIZE.x,velocity+PLAYER_SIZE.y) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(0.0,PLAYER_SIZE.y + velocity) - maze->Position))
             {
                 maze->Position.y -= velocity;
-                // if (Ball->Stuck)
-                //     Ball->Position.x += velocity;
             }
         }
         if (this->Keys[GLFW_KEY_W])
@@ -321,8 +264,6 @@ void Game::ProcessInput(float dt)
             if (maze->Position.y - CENTER.y <= maze->mazeSize.y && maze->checkInside(Player->Position+glm::vec2(0.0, -velocity) - maze->Position) && maze->checkInside(Player->Position+glm::vec2(PLAYER_SIZE.x,-velocity) - maze->Position))
             {
                 maze->Position.y += velocity;
-                // if (Ball->Stuck)
-                //     Ball->Position.x += velocity;
             }
         }
         // if (this->Keys[GLFW_KEY_SPACE])
@@ -332,6 +273,7 @@ void Game::ProcessInput(float dt)
         {
             pp->Position += new_maze - curmaze;
         }
+        Enemy->Position += new_maze - curmaze;
     }
 }
 
@@ -347,6 +289,7 @@ void Game::Render()
         }
 
         Player->Draw(*Renderer);
+        Enemy->Draw(*Renderer);
 
         std::stringstream ss1, ss2, ss3, ss4;
         ss1 << this->Health;
