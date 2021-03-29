@@ -105,6 +105,11 @@ void Game::Init()
     Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("player_1"));
     tasks = 0;
 
+    this->Health = 100;
+    this->Score = 0;
+    this->Lights = 1;
+    this->Time = 200; 
+
 }
 
 
@@ -147,6 +152,8 @@ void Game::Update(float dt)
             if(pp->ObjectType>2)
             {
                 this->Score += (pp->ObjectType==3)?50:-50;
+                if(pp->ObjectType==4)  
+                    this->Health -= 50;
             }
             if(pp->ObjectType!=0)
                 todel.push_back(cnt);
@@ -164,15 +171,26 @@ void Game::Update(float dt)
         glm::vec2 pos1 = glm::vec2(maze->availableRooms[0].first + maze->Position.x,maze->availableRooms[0].second + maze->Position.y);
         glm::vec2 pos2 = glm::vec2(maze->availableRooms[1].first + maze->Position.x,maze->availableRooms[1].second + maze->Position.y);
         glm::vec2 pos3 = glm::vec2(maze->availableRooms[2].first + maze->Position.x,maze->availableRooms[2].second + maze->Position.y);
+        glm::vec2 pos4 = glm::vec2(maze->availableRooms[3].first + maze->Position.x,maze->availableRooms[3].second + maze->Position.y);
         PowerUp *p1 = new PowerUp(pos1, 3);
         PowerUp *p2 = new PowerUp(pos2, 3);
         PowerUp *p3 = new PowerUp(pos3, 4);
+        PowerUp *p4 = new PowerUp(pos4, 4);
         p1->init();
         p2->init();
         p3->init();
+        p4->init();
         powerups.push_back(p1);
         powerups.push_back(p2);
         powerups.push_back(p3);
+        powerups.push_back(p4);
+    }
+    this->Time--;
+    if(this->Health<=0)
+    {
+        this->State = GAME_LOSS;
+        exit(0);
+        return;
     }
     
     // // update objects
@@ -320,10 +338,15 @@ void Game::Render()
 
         Player->Draw(*Renderer);
 
-        std::stringstream ss;
-        ss << this->Score;
-        Text->RenderText("Score:" + ss.str(), 80.0f, 80.0f, 1.0f);
-
+        std::stringstream ss1, ss2, ss3, ss4;
+        ss1 << this->Health;
+        Text->RenderText("Health: " + ss1.str(), 20.0f, 20.0f, 1.0f);
+        ss2 << this->Score;
+        Text->RenderText("Score: " + ss2.str(), 20.0f, 50.0f, 1.0f);
+        ss3 << (this->Lights)?"On":"Off";
+        Text->RenderText((this->Lights)?"Lights: On":"Lights: Off", 20.0f, 80.0f, 1.0f);
+        ss4 << this->Score;
+        Text->RenderText("Time: " + ss4.str(), 20.0f, 110.0f, 1.0f);
         // std::cout<<powerups.size()<<'\n';
         // exit(0);
         // // draw PowerUps
