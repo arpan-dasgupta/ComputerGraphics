@@ -33,10 +33,7 @@ Game::~Game()
     delete Player;
     delete maze;
     delete Enemy;
-    // delete Ball;
-    // delete Particles;
-    // delete Effects;
-    // delete Text;
+    delete Text;
     // SoundEngine->drop();
 }
 
@@ -74,6 +71,7 @@ void Game::Init()
     glm::vec2 mazePos = glm::vec2(CENTER.x, CENTER.y);
     maze =  new Maze(mazePos);
     maze->init();
+    MazeInitPos = maze->Position;
 
     // configure game objects
     glm::vec2 playerPos = glm::vec2(CENTER.x, CENTER.y);
@@ -138,11 +136,16 @@ void Game::Update(float dt)
             if(tasks==2 && pp->ObjectType==0)
             {
                 this->State = GAME_WIN;
-                // exit(0);
                 return;
             }
             if(pp->ObjectType==1)
             {
+                Enemy->Position = maze->Position + maze->powerUp2Pos - this->MazeInitPos;
+                // std::cout<<Enemy->Position.x<<" "<<Enemy->Position.y<<'\n';
+                // std::cout<<maze->Position.x<<" "<<maze->Position.y<<'\n';
+                // std::cout<<maze->powerUp1Pos.x<<" "<<maze->powerUp1Pos.y<<'\n';
+                // std::cout<<CENTER.x<<" "<<CENTER.y<<'\n';
+                // std::cout<<powerups[2]->Position.x<<" "<<powerups[2]->Position.y<<'\n';
                 tasks++;
             }
             if(pp->ObjectType==2)

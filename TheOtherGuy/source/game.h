@@ -59,6 +59,7 @@ public:
     unsigned int            Width, Height;
     std::vector<PowerUp*>   powerups;
     int                     tasks;
+    glm::vec2               MazeInitPos;
     // Maze                    maze;
     // std::vector<PowerUp>    PowerUps;
     unsigned int            Level;
