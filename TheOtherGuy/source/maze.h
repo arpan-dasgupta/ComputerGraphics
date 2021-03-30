@@ -29,6 +29,7 @@ public:
     std::vector<glm::vec2> allCoords;
     // std::vector<glm::vec2> 
     std::vector<glm::vec2> roomCoords, pathCoords;
+    std::vector<std::vector<std::pair<int,int>>> fw_distances;
 
     // constructor
     Maze() { }
@@ -40,6 +41,7 @@ public:
     // check if the level is completed (all non-solid tiles are destroyed)
     bool IsCompleted();
     void init();
+    void floydWarshall();
     int checkInside(glm::vec2 point);
 private:
     glm::vec4 get_corners(glm::vec2 position, float rotate, glm::vec2 size, int room);

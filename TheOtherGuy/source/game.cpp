@@ -19,6 +19,7 @@ Maze              *maze;
 // PowerUp                 *powerups;
 // BallObject        *Ball;
 TextRenderer      *Text;
+int               disbled_back_attract;
 
 
 Game::Game(unsigned int width, unsigned int height) 
@@ -72,6 +73,7 @@ void Game::Init()
     maze =  new Maze(mazePos);
     maze->init();
     MazeInitPos = maze->Position;
+    maze->floydWarshall();
 
     // configure game objects
     glm::vec2 playerPos = glm::vec2(CENTER.x, CENTER.y);
@@ -92,7 +94,7 @@ void Game::Init()
     powerups.push_back(p2);
     powerups.push_back(p3);
     // std::cout<<p1->Walls[0].Position.x<<" "<<p1->Walls[0].Position.y<<" "<<p1->Walls[0].Offset.x<<" "<<p1->Walls[0].Offset.y<<" "<<p1->Walls[0].Size.x<<" "<<p1->Walls[0].Size.y<<'\n';
-    std::cout<<exitPos.x<<" "<<exitPos.y<<'\n';
+    // std::cout<<exitPos.x<<" "<<exitPos.y<<'\n';
 
     Enemy = new GameCharacter(exitPos, 1);
     Enemy->init();
@@ -101,7 +103,7 @@ void Game::Init()
     this->Health = 100;
     this->Score = 0;
     this->Lights = 1;
-    this->Time = 200; 
+    this->Time = 20000; 
 }
 
 
@@ -121,7 +123,7 @@ bool CheckCollision(GameObject one, GameObject two) // AABB - AABB collision
 
 bool Game::CheckIfConnected(glm::vec2 a, glm::vec2 b)
 {
-    for(float lambda = 0;lambda<=1.0;lambda+=0.05)
+    for(float lambda = 0;lambda<=1.0;lambda+=0.002)
     {
         glm::vec2 new_point = glm::vec2(a.x*lambda + b.x*(1-lambda),a.y*lambda + b.y*(1-lambda));
         if(maze->checkInside(new_point-maze->Position)==0)
@@ -211,6 +213,11 @@ void Game::Update(float dt)
         this->State = GAME_LOSS;
         return;
     }
+    if(this->Time<=0)
+    {
+        this->State = GAME_LOSS;
+        return;
+    }
     if(CheckCollision(Player->Walls[0], Enemy->Walls[0]))
     {
         this->State = GAME_LOSS;
@@ -223,6 +230,8 @@ void Game::Update(float dt)
     // std::cout<<Enemy->Position.x<<" "<<Enemy->Position.y<<'\n';
     // std::cout<<Player->Position.x<<" "<<Player->Position.y<<'\n';
     // std::cout<<'\n';
+
+    disbled_back_attract--;
     if(this->CheckIfConnected(Player->Position,Enemy->Position))
     {
         // std::cout<<"Okay";
@@ -230,6 +239,90 @@ void Game::Update(float dt)
         float dist = glm::length(Player->Position- Enemy->Position);
         glm::vec2 new_point = glm::vec2((Player->Position.x*lambda + Enemy->Position.x*(dist-lambda))/dist,(Player->Position.y*lambda + Enemy->Position.y*(dist-lambda))/dist);
         Enemy->Position = new_point;
+    }
+    else
+    {
+        std::vector<int> dest_closest;
+        for(int i=0;i<maze->allCoords.size();i++)
+        {
+            if(CheckIfConnected(maze->allCoords[i]+maze->Position,Player->Position))
+            {
+                dest_closest.push_back(i);
+                // std::cout<<maze->allCoords[i].x+maze->Position.x<<" "<<maze->allCoords[i].y+maze->Position.y<<'\n';
+                // std::cout<<Player->Position.x<<" "<<Player->Position.y<<'\n';
+                // maze->Walls.push_back(GameObject(maze->allCoords[i], glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+            }
+            // std::cout<<"PPPPPPPPPPPPPPPPPPPPP\n";
+        }
+        // std::cout<<dest_closest.size()<<'\n';
+        int frag=0;
+        for(int i=0;i<maze->allCoords.size();i++)
+        {
+            if(glm::length(Enemy->Position-maze->allCoords[i]-maze->Position)<=3.0 && disbled_back_attract<=0)
+            {
+                int next_min=100000, next_dest=-1, tt=0;
+                for(auto a: dest_closest)
+                {
+                    if(glm::length(Player->Position-maze->allCoords[a]-maze->Position)+maze->fw_distances[i][a].first<next_min)
+                    {
+                        next_min = glm::length(Player->Position-maze->allCoords[a]-maze->Position)+maze->fw_distances[i][a].first;
+                        next_dest = maze->fw_distances[i][a].second;
+                        tt=a;
+                    }
+                }
+                float lambda = ENEMY_VELOCITY;
+                float dist = glm::length(maze->allCoords[next_dest]+maze->Position-Enemy->Position);
+                float a = (maze->allCoords[next_dest].x + maze->Position.x)*lambda + Enemy->Position.x*(dist-lambda);
+                float b = (maze->allCoords[next_dest].y + maze->Position.y)*lambda + Enemy->Position.y*(dist-lambda);
+                glm::vec2 new_point = glm::vec2(a/dist,b/dist);
+                // exit(0);
+                // std::cout<<maze->allCoords[tt].x+maze->Position.x<<" "<<maze->allCoords[tt].y+maze->Position.y<<"\n";
+                // std::cout<<new_point.x<<" "<<new_point.y<<"\n";
+                // std::cout<<next_dest<<'\n';
+                // std::cout<<maze->allCoords[next_dest].x+maze->Position.x<<" "<<maze->allCoords[next_dest].y+maze->Position.y<<"\n";
+                // std::cout<<Enemy->Position.x<<" "<<Enemy->Position.y<<"\n";
+                // std::cout<<"++++++++++++++++++++++++++++++++++\n";
+                Enemy->Position = new_point;
+                frag=1;
+                disbled_back_attract=10;
+            }
+        }
+        if(frag==0)
+        {
+            int next_min=10000000, next_dest=0, tt=0;
+            for(int i=0;i<maze->allCoords.size();i++)
+            {
+                if(CheckIfConnected(maze->allCoords[i]+maze->Position,Enemy->Position))
+                {
+                    // std::cout<<maze->allCoords[i].x+maze->Position.x<<" "<<maze->allCoords[i].y+maze->Position.y<<" oooo \n";
+                    // maze->Walls.push_back(GameObject(maze->allCoords[i], glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+                    for(auto a: dest_closest)
+                    {
+                        if(glm::length(Player->Position-maze->allCoords[a]-maze->Position)+maze->fw_distances[i][a].first+glm::length(Enemy->Position-maze->allCoords[i]-maze->Position)<next_min)
+                        {
+                            next_min = glm::length(Player->Position-maze->allCoords[a]-maze->Position)+maze->fw_distances[i][a].first+glm::length(Enemy->Position-maze->allCoords[i]-maze->Position);
+                            next_dest = i;
+                            tt=a;
+                        }
+                    }
+                }
+            }
+            float lambda = ENEMY_VELOCITY;
+            float dist = glm::length(maze->allCoords[next_dest]+maze->Position-Enemy->Position);
+            float a = (maze->allCoords[next_dest].x + maze->Position.x)*lambda + Enemy->Position.x*(dist-lambda);
+            float b = (maze->allCoords[next_dest].y + maze->Position.y)*lambda + Enemy->Position.y*(dist-lambda);
+            glm::vec2 new_point = glm::vec2(a/dist,b/dist);
+            // std::cout<<maze->allCoords[tt].x+maze->Position.x<<" "<<maze->allCoords[tt].y+maze->Position.y<<"\n";
+            // std::cout<<next_dest<<'\n';
+            // std::cout<<maze->allCoords[next_dest].x+maze->Position.x<<" "<<maze->allCoords[next_dest].y+maze->Position.y<<"\n";
+            // std::cout<<Enemy->Position.x<<" "<<Enemy->Position.y<<"\n";
+            // std::cout<<maze->checkInside(maze->allCoords[next_dest])<<'\n';
+            // std::cout<<CheckIfConnected(maze->allCoords[next_dest]+maze->Position,Enemy->Position)<<'\n';
+            // std::cout<<maze->checkInside(new_point-maze->Position)<<'\n';
+            // std::cout<<lambda/dist<<'\n';
+            // std::cout<<"==========================\n";
+            Enemy->Position = new_point;
+        }
     }
 }
 
@@ -341,7 +434,7 @@ void Game::Render()
         Text->RenderText("Score: " + ss2.str(), 20.0f, 50.0f, 1.0f);
         ss3 << (this->Lights)?"On":"Off";
         Text->RenderText((this->Lights)?"Lights: On":"Lights: Off", 20.0f, 80.0f, 1.0f);
-        ss4 << this->Score;
+        ss4 << (this->Time)/100;
         Text->RenderText("Time: " + ss4.str(), 20.0f, 110.0f, 1.0f);
     }
     // if (this->State == GAME_MENU)

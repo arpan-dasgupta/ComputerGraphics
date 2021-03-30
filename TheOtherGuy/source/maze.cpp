@@ -104,6 +104,50 @@ int Maze::checkInside(glm::vec2 point)
     return 0;
 }
 
+void Maze::floydWarshall()
+{
+    int num_vertices = allCoords.size();
+    fw_distances = std::vector<std::vector<std::pair<int,int>>>(num_vertices+10, std::vector<std::pair<int,int>>(num_vertices+10,{1000000,-1}));
+    for(int i=0;i<num_vertices;i++)
+    {
+        for(auto a: adjListWeighted[i])
+        {
+            fw_distances[i][a.first] = {a.second, a.first};
+        }
+        fw_distances[i][i] = {0.0,i};
+    }
+    // for(int i=0;i<num_vertices;i++)
+    // {
+    //     for(int j=0;j<num_vertices;j++)
+    //     {
+    //         std::cout<<fw_distances[i][j].first<<":"<<fw_distances[i][j].second<<" ";
+    //     }
+    //     std::cout<<'\n';
+    // }
+    for(int k=0;k<num_vertices;k++)
+    {
+        for(int i=0;i<num_vertices;i++)
+        {
+            for(int j=0;j<num_vertices;j++)
+            {
+                if(fw_distances[i][j].first>fw_distances[i][k].first+fw_distances[k][j].first)
+                {
+                    fw_distances[i][j].first=fw_distances[i][k].first+fw_distances[k][j].first;
+                    fw_distances[i][j].second=fw_distances[i][k].second;
+                }
+            }
+        }
+    }
+    // for(int i=0;i<num_vertices;i++)
+    // {
+    //     for(int j=0;j<num_vertices;j++)
+    //     {
+    //         std::cout<<fw_distances[i][j].first<<":"<<fw_distances[i][j].second<<" ";
+    //     }
+    //     std::cout<<'\n';
+    // }
+}
+
 glm::vec4 Maze::get_corners(glm::vec2 position, float rotate, glm::vec2 size, int room)
 {
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(800.0), static_cast<float>(800.0), 0.0f, -1.0f, 1.0f);
