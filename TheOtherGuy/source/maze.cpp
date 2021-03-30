@@ -92,7 +92,7 @@ int Maze::checkInside(glm::vec2 point)
     {
         glm::vec2 quad[4] = {roomCoords[i],roomCoords[i+1],roomCoords[i+2],roomCoords[i+3]};
         if(pointIsInQuad(point,quad))
-            return 2;
+            return 1;
     }
     for(int i=0;i<pathCoords.size();i+=4)
     {
@@ -157,7 +157,7 @@ void Maze::init()
     {
         int curr = 0;
         adjList.resize(4*num_hor);
-        adjListWeighted.resize(4*num_hor);
+        adjListWeighted.resize(5*num_hor);
         std::pair<int,int> prep1, prep2;
         int pre_count=0;
         for(int i=0;i<num_hor;i++)
@@ -229,7 +229,7 @@ void Maze::init()
     {
         int curr = 0;
         adjList.resize(4*num_vert);
-        adjListWeighted.resize(4*num_vert);
+        adjListWeighted.resize(5*num_vert);
         std::pair<int,int> prep1, prep2;
         int pre_count=0;
         for(int i=0;i<num_vert;i++)
@@ -323,15 +323,42 @@ void Maze::init()
         // glm::vec2 gree = glm::vec2(res.x,res.y);
         // this->Walls.push_back(GameObject(gree, room_shape, ResourceManager::GetTexture("block")));     
 
-        adjListWeighted[edges[i].first].push_back({edges[i].second,dist});
-        adjListWeighted[edges[i].second].push_back({edges[i].first,dist});
+        // adjListWeighted[edges[i].first].push_back({edges[i].second,dist});
+        // adjListWeighted[edges[i].second].push_back({edges[i].first,dist});
     }
 
     // check if corners are correct
-    for(auto a: roomCoords)
+    // for(auto a: roomCoords)
+    // {
+    //     this->Walls.push_back(GameObject(a, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+    // }
+
+    int num_rooms = vertexPositions.size();
+
+    for(int i=0;i<vertexPositions.size();i++)
     {
-        this->Walls.push_back(GameObject(a, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+        glm::vec2 temp1 = roomCoords[i*4] + roomCoords[i*4+1] + roomCoords[i*4+2] + roomCoords[i*4+3];
+        glm::vec2 room_mid_1 = glm::vec2(temp1.x/4,temp1.y/4);
+        this->allCoords.push_back(room_mid_1);
     }
+
+    for(int i=0;i<edges.size();i++)
+    {
+        int room1 = edges[i].first, room2 = edges[i].second, edge_no = i;
+        glm::vec2 temp3 = pathCoords[edge_no*4] + pathCoords[edge_no*4+1] + pathCoords[edge_no*4+2] + pathCoords[edge_no*4+3];
+        glm::vec2 corridor_mid = glm::vec2(temp3.x/4,temp3.y/4);
+        this->allCoords.push_back(corridor_mid);
+        adjListWeighted[room1].push_back({num_rooms+i,glm::length(corridor_mid-allCoords[room1])});
+        adjListWeighted[num_rooms+i].push_back({room1,glm::length(corridor_mid-allCoords[room1])});
+        adjListWeighted[room2].push_back({num_rooms+i,glm::length(corridor_mid-allCoords[room2])});
+        adjListWeighted[num_rooms+i].push_back({room2,glm::length(corridor_mid-allCoords[room2])});
+    }
+
+    // check if midpoints are correct
+    // for(auto a: allCoords)
+    // {
+    //     this->Walls.push_back(GameObject(a, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+    // }
 
     int playerInitVertex = rand()%vertexPositions.size();
     while(playerInitVertex==0)

@@ -40,6 +40,7 @@ typedef std::tuple<bool, Direction, glm::vec2> Collision; // <collision?, what d
 const glm::vec2 PLAYER_SIZE(50.0f, 60.0f);
 // Initial velocity of the maze
 const float MAZE_VELOCITY(300.0f);
+const float ENEMY_VELOCITY(2.0f);
 // Initial velocity of the Ball
 const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
 const glm::vec2 CENTER(400.0f, 400.0f);
@@ -75,6 +76,7 @@ public:
     void ProcessInput(float dt);
     void Update(float dt);
     void Render();
+    bool CheckIfConnected(glm::vec2 a, glm::vec2 b);
     // void DoCollisions();
     // // reset
     // void ResetLevel();

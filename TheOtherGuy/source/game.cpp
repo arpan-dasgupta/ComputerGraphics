@@ -92,6 +92,7 @@ void Game::Init()
     powerups.push_back(p2);
     powerups.push_back(p3);
     // std::cout<<p1->Walls[0].Position.x<<" "<<p1->Walls[0].Position.y<<" "<<p1->Walls[0].Offset.x<<" "<<p1->Walls[0].Offset.y<<" "<<p1->Walls[0].Size.x<<" "<<p1->Walls[0].Size.y<<'\n';
+    std::cout<<exitPos.x<<" "<<exitPos.y<<'\n';
 
     Enemy = new GameCharacter(exitPos, 1);
     Enemy->init();
@@ -116,6 +117,18 @@ bool CheckCollision(GameObject one, GameObject two) // AABB - AABB collision
         two.Position.y + two.Size.y + two.Offset.y >= one.Position.y + one.Offset.y;
     // collision only if on both axes
     return collisionX && collisionY;
+}
+
+bool Game::CheckIfConnected(glm::vec2 a, glm::vec2 b)
+{
+    for(float lambda = 0;lambda<=1.0;lambda+=0.05)
+    {
+        glm::vec2 new_point = glm::vec2(a.x*lambda + b.x*(1-lambda),a.y*lambda + b.y*(1-lambda));
+        if(maze->checkInside(new_point-maze->Position)==0)
+            return false;
+        // maze->Walls.push_back(GameObject(new_point-this->MazeInitPos, glm::vec2(5.0,5.0), ResourceManager::GetTexture("block")));
+    }
+    return true;
 }
 
 void Game::Update(float dt)
@@ -206,6 +219,18 @@ void Game::Update(float dt)
     Player->moved = std::max(Player->moved-1,0);
     if(Player->moved==0)
         Player->active = false;
+
+    // std::cout<<Enemy->Position.x<<" "<<Enemy->Position.y<<'\n';
+    // std::cout<<Player->Position.x<<" "<<Player->Position.y<<'\n';
+    // std::cout<<'\n';
+    if(this->CheckIfConnected(Player->Position,Enemy->Position))
+    {
+        // std::cout<<"Okay";
+        float lambda = ENEMY_VELOCITY;
+        float dist = glm::length(Player->Position- Enemy->Position);
+        glm::vec2 new_point = glm::vec2((Player->Position.x*lambda + Enemy->Position.x*(dist-lambda))/dist,(Player->Position.y*lambda + Enemy->Position.y*(dist-lambda))/dist);
+        Enemy->Position = new_point;
+    }
 }
 
 

@@ -124,6 +124,18 @@ texture.h
 sprite_renderer.h
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/sprite_renderer.h
 
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/main.cpp
+glad/glad.h
+-
+GLFW/glfw3.h
+-
+game.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/game.h
+resource_manager.h
+/home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/resource_manager.h
+iostream
+-
+
 /home/arpan/Documents/ComputerGraphics/TheOtherGuy/source/maze.h
 vector
 -

@@ -26,6 +26,8 @@ public:
     std::vector<std::pair<float,float>> vertexPositions;
     std::vector<std::pair<int,int>> edges;
     glm::vec2   playerInitPos;
+    std::vector<glm::vec2> allCoords;
+    // std::vector<glm::vec2> 
     std::vector<glm::vec2> roomCoords, pathCoords;
 
     // constructor
