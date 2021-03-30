@@ -440,6 +440,7 @@ void Maze::init()
     this->exitPos = this->Position + exitPos;
     // exit(0);
     // this->Walls.push_back(GameObject(pos2, size2, ResourceManager::GetTexture("block")));
+    reverse(this->Walls.begin(),this->Walls.end());
 
     for(int i=0;i<vertexPositions.size();i++)
     {

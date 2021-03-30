@@ -55,7 +55,7 @@ void Game::Init()
     ResourceManager::LoadTexture("../assets/textures/among_us_2.png", true, "player_3");
     ResourceManager::LoadTexture("../assets/textures/among_us_3.png", true, "player_4");
     ResourceManager::LoadTexture("../assets/textures/among_us_4.png", true, "player_5");
-    ResourceManager::LoadTexture("../assets/textures/amongus_3.png", true, "enemy");
+    ResourceManager::LoadTexture("../assets/textures/ghost.png", true, "enemy");
     ResourceManager::LoadTexture("../assets/textures/coin3.png", true, "coin");
     ResourceManager::LoadTexture("../assets/textures/star2.png", true, "star");
     ResourceManager::LoadTexture("../assets/textures/door.png", true, "door");
@@ -103,7 +103,7 @@ void Game::Init()
     this->Health = 100;
     this->Score = 0;
     this->Lights = 1;
-    this->Time = 20000; 
+    this->Time = 3000; 
 }
 
 
