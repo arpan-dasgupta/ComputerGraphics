@@ -95,7 +95,7 @@ public:
     glm::vec2   mazeSize;
     glm::vec2   exitPos, powerUp1Pos, powerUp2Pos;
     int         ObjectType; // 0 exit, 1 , 2
-    bool        active;
+    bool        active, flipped;
     int         counter, moved;
 
     std::vector<std::vector<int>> adjList;

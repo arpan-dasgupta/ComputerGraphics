@@ -18,6 +18,7 @@ void GameCharacter::Draw(SpriteRenderer &renderer)
             this->counter = 0;
             GameObject &tile = this->Walls[0];
             tile.Offset = this->Position;
+            tile.flipped = this->flipped;
             tile.Draw(renderer);    
         }
         else
@@ -25,6 +26,7 @@ void GameCharacter::Draw(SpriteRenderer &renderer)
             this->counter++;
             GameObject &tile = this->Walls[(this->counter/10)%5];
             tile.Offset = this->Position;
+            tile.flipped = this->flipped;
             tile.Draw(renderer);    
         }
         return;
@@ -33,6 +35,7 @@ void GameCharacter::Draw(SpriteRenderer &renderer)
     {
         // std::cout<<this->ObjectType<<"\n";
         tile.Offset = this->Position;
+        tile.flipped = this->flipped;
         tile.Draw(renderer);
     }
 }

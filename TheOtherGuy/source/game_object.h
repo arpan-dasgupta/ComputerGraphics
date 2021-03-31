@@ -28,6 +28,7 @@ public:
     float       Rotation;
     bool        IsSolid;
     bool        Destroyed;
+    bool        flipped;
     // render state
     Texture2D   Sprite;	
     // constructor(s)
