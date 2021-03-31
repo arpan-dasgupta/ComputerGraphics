@@ -189,7 +189,7 @@ glm::vec4 Maze::get_corners(glm::vec2 position, float rotate, glm::vec2 size, in
 
 void Maze::init()
 {
-    // srand(time(0)); // Truly random
+    srand(time(0)); // Truly random
     int num_hor = (rand()%3 + 4), num_vert = (rand()%3 + 4);
     float roomsize = 200;
     float roomdist = 100;
