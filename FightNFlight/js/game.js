@@ -7,7 +7,7 @@ var Colors = {
     pink:0xF5986E,
     yellow:0xf4ce93,
     blue:0x68c3c0,
-
+    blueDark:0x5067e7,
 };
 
 ///////////////
@@ -31,6 +31,7 @@ function resetGame(){
           distanceForSpeedUpdate:100,
           speedLastUpdate:0,
 
+          score:0,
           distance:0,
           ratioSpeedDistance:50,
           energy:100,
@@ -84,7 +85,7 @@ function resetGame(){
 
           status : "playing",
          };
-  fieldLevel.innerHTML = Math.floor(game.level);
+  // fieldLevel.innerHTML = Math.floor(game.level);
 }
 
 //THREEJS RELATED VARIABLES
@@ -498,8 +499,8 @@ Sea = function(){
                     });
   };
   var mat = new THREE.MeshPhongMaterial({
-    color:Colors.blue,
-    transparent:true,
+    color:Colors.blueDark,
+    transparent:false,
     opacity:.8,
     shading:THREE.FlatShading,
 
@@ -841,7 +842,7 @@ function loop(){
     if (Math.floor(game.distance)%game.distanceForLevelUpdate == 0 && Math.floor(game.distance) > game.levelLastUpdate){
       game.levelLastUpdate = Math.floor(game.distance);
       game.level++;
-      fieldLevel.innerHTML = Math.floor(game.level);
+      // fieldLevel.innerHTML = Math.floor(game.level);
 
       game.targetBaseSpeed = game.initSpeed + game.incrementSpeedByLevel*game.level
     }
@@ -889,9 +890,10 @@ function loop(){
 
 function updateDistance(){
   game.distance += game.speed*deltaTime*game.ratioSpeedDistance;
-  fieldDistance.innerHTML = Math.floor(game.distance);
+  fieldDistance.innerHTML = Math.floor(game.score);
+  energyVal.innerHTML = Math.floor(game.energy);
   var d = 502*(1-(game.distance%game.distanceForLevelUpdate)/game.distanceForLevelUpdate);
-  levelCircle.setAttribute("stroke-dashoffset", d);
+  // levelCircle.setAttribute("stroke-dashoffset", d);
 
 }
 
@@ -900,14 +902,14 @@ var blinkEnergy=false;
 function updateEnergy(){
   game.energy -= game.speed*deltaTime*game.ratioSpeedEnergy;
   game.energy = Math.max(0, game.energy);
-  energyBar.style.right = (100-game.energy)+"%";
-  energyBar.style.backgroundColor = (game.energy<50)? "#f25346" : "#68c3c0";
+  // energyBar.style.right = (100-game.energy)+"%";
+  // energyBar.style.backgroundColor = (game.energy<50)? "#f25346" : "#68c3c0";
 
-  if (game.energy<30){
-    energyBar.style.animationName = "blinking";
-  }else{
-    energyBar.style.animationName = "none";
-  }
+  // if (game.energy<30){
+  //   energyBar.style.animationName = "blinking";
+  // }else{
+  //   energyBar.style.animationName = "none";
+  // }
 
   if (game.energy <1){
     game.status = "gameover";
@@ -930,7 +932,7 @@ function updatePlane(){
 
   game.planeSpeed = normalize(mousePos.x,-.5,.5,game.planeMinSpeed, game.planeMaxSpeed);
   // var targetY = normalize(mousePos.y,-.75,.75,game.planeDefaultHeight-game.planeAmpHeight, game.planeDefaultHeight+game.planeAmpHeight);
-  var targetZ = normalize(mousePos.z,-.75,.75,-200, 200);
+  var targetZ = normalize(mousePos.z,-.75,.75,-150, 150);
   var targetX = normalize(-mousePos.x,-1,1,-game.planeAmpWidth*.7, -game.planeAmpWidth);
 
   game.planeCollisionDisplacementX += game.planeCollisionSpeedX;
@@ -976,17 +978,17 @@ function normalize(v,vmin,vmax,tmin, tmax){
   return tv;
 }
 
-var fieldDistance, energyBar, replayMessage, fieldLevel, levelCircle;
+var fieldDistance, energyVal, replayMessage, fieldLevel, levelCircle;
 
 function init(event){
 
   // UI
 
   fieldDistance = document.getElementById("distValue");
-  energyBar = document.getElementById("energyBar");
+  energyVal = document.getElementById("energyValue");
   replayMessage = document.getElementById("replayMessage");
-  fieldLevel = document.getElementById("levelValue");
-  levelCircle = document.getElementById("levelCircleStroke");
+  // fieldLevel = document.getElementById("levelValue");
+  // levelCircle = document.getElementById("levelCircleStroke");
 
   resetGame();
   createScene();

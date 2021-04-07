@@ -2,8 +2,8 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: -webkit-linear-gradient(#e4e0ba, #f7d9aa);
-	background: linear-gradient(#e4e0ba, #f7d9aa);
+	background: -webkit-linear-gradient(#000000, #000000);
+	background: linear-gradient(#000000, #000000);
 }
 
 .world {
@@ -14,7 +14,7 @@
 }
 
 .header {
-	position: absolute;
+	position: relative;
 	top: 8vh;
 	left: 0;
 	width: 100%;
@@ -28,7 +28,7 @@
 	line-height: 1;
 	margin: 0;
 	letter-spacing: -0.025em;
-	color: #d1b790;
+	color: #909ad1;
 }
 
 .header h1 span {
@@ -69,19 +69,19 @@
 }
 
 .score__label {
-	font-size: 9px;
+	font-size: 20px;
 	position: relative;
 	margin: 0 0 0.5em 0;
 	text-align: center;
 	letter-spacing: 3px;
 	text-transform: uppercase;
-	color: #d1b790;
+	color: #000000;
 }
 
 .score__value {
 	font-family: 'Playfair Display';
 	font-weight: bold;
-	color: #d1b790;
+	color: #000000;
 }
 
 .score__value--level {
@@ -117,7 +117,7 @@
 	bottom: 0;
 	left: 0;
 	margin: 2px;
-	background-color: #f25346;
+	background-color: #ffffff;
 	-webkit-animation-name: none;
 	animation-name: none;
 	-webkit-animation-duration: 150ms;
