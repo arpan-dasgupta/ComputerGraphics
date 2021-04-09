@@ -60,6 +60,7 @@ function resetGame(){
           planeCollisionSpeedZs:0,
 
           missleSpeed:280,
+          missileDistanceTolerance:20,
 
           seaRadius:2000,
           seaLength:2000,
@@ -83,7 +84,8 @@ function resetGame(){
           ennemyValue:10,
           ennemiesSpeed:.6,
           ennemyLastSpawn:0,
-          distanceForEnnemiesSpawn:50,
+          distanceForEnnemiesSpawn:20,
+          enemyMissileDist:2,
 
           status : "playing",
          };
@@ -635,7 +637,7 @@ EnnemiesHolder.prototype.rotateEnnemies = function(){
     if (ennemy.angle > Math.PI*2) ennemy.angle -= Math.PI*2;
     
     ennemy.mesh.position.y = game.planeDefaultHeight;
-    if(ennemy.mesh.position.x > 20)
+    if(ennemy.mesh.position.x > 80)
     {
       ennemy.angle += game.speed*deltaTime*game.ennemiesSpeed;
       ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
@@ -662,6 +664,29 @@ EnnemiesHolder.prototype.rotateEnnemies = function(){
       this.mesh.remove(ennemy.mesh);
       i--;
     }
+    torem = []
+    mymissile.forEach(missile => {
+      if(missile.mesh)
+      {
+        var diffPos = missile.mesh.position.clone().sub(ennemy.mesh.position.clone());
+        var d = diffPos.length();
+        if (d<game.missileDistanceTolerance){
+          particlesHolder.spawnParticles(ennemy.mesh.position.clone(), 15, Colors.red, 3);
+          torem.push(missile);
+          ennemiesPool.unshift(this.ennemiesInUse.splice(i,1)[0]);
+          this.mesh.remove(ennemy.mesh);
+          // game.planeCollisionSpeedX = 100 * diffPos.x / d;
+          // game.planeCollisionSpeedY = 100 * diffPos.y / d;
+          // ambientLight.intensity = 2;
+          addScore();
+          // removeEnergy();
+          i--;
+        }
+      }
+    });
+    torem.forEach(missile => {
+      scene.remove(missile.mesh);
+    });
   }
 }
 
@@ -749,6 +774,26 @@ Missile = function(){
 
 Missile.prototype.move = function(){
   this.mesh.position.x += game.speed*deltaTime*(this.type)*game.missleSpeed;
+  // if(mesh.type==-1)
+  // {
+  //   enemymissile.forEach(Missile => {
+  //     var diffPos = airplane.mesh.position.clone().sub(missile.mesh.position.clone());
+  //     var d = diffPos.length();
+  //     if (d<game.ennemyDistanceTolerance){
+  //       particlesHolder.spawnParticles(airplane.mesh.position.clone(), 15, Colors.red, 3);
+  
+  //       // ennemiesPool.unshift(this.ennemiesInUse.splice(i,1)[0]);
+  //       // this.mesh.remove(ennemy.mesh);
+  //       game.planeCollisionSpeedX = 100 * diffPos.x / d;
+  //       game.planeCollisionSpeedY = 100 * diffPos.y / d;
+  //       ambientLight.intensity = 2;
+  //       scene.remove(missile.mesh);
+  
+  //       removeEnergy();
+  //       i--;
+  //     }
+  //   });
+  // }
 }
 
 Coin = function(){
@@ -1050,7 +1095,6 @@ function updateMissiles(){
     if(missile.mesh)
     {
       missile.move();
-      console.log("ok");
     }
   });
   enemymissile.forEach(missile => {
