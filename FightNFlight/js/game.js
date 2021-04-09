@@ -194,7 +194,7 @@ function createLights() {
   ambientLight = new THREE.AmbientLight(0xdc8874, .5);
 
   shadowLight = new THREE.DirectionalLight(0xffffff, .9);
-  shadowLight.position.set(150, 350, 650);
+  shadowLight.position.set(150, 350, 350);
   shadowLight.castShadow = true;
   shadowLight.shadow.camera.left = -400;
   shadowLight.shadow.camera.right = 400;
@@ -567,17 +567,35 @@ Cloud.prototype.rotate = function(){
 }
 
 Ennemy = function(){
-  var geom = new THREE.TetrahedronGeometry(8,2);
-  var mat = new THREE.MeshPhongMaterial({
-    color:Colors.red,
-    shininess:0,
-    specular:0xffffff,
-    shading:THREE.FlatShading
-  });
-  this.mesh = new THREE.Mesh(geom,mat);
-  this.mesh.castShadow = true;
-  this.angle = 0;
-  this.dist = 0;
+  let enemyLoader = new THREE.GLTFLoader();
+  // var xx = 0;
+  enemyLoader.load('models/plane1.gltf', function(gltf){
+    // airplane = gltf;
+    this.mesh = gltf.scene;
+    this.mesh.scale.set(3.5, 3.5, 3.5);
+    // this.mesh.position.y = game.planeDefaultHeight;
+    // this.mesh.rotation.y = 3.141;
+    // console.log(this.mesh.position);
+    this.mesh.castShadow = true;
+    this.mesh.receiveShadow = true;
+    this.angle = 0;
+    this.dist = 0;
+    // scene.add(this.mesh);
+    // xx = gltf.scene;
+    // console.log(xx);
+    // this.mesh.scale.set(0.2,0.2,0.2);
+  }.bind(this));
+  // var geom = new THREE.TetrahedronGeometry(8,2);
+  // var mat = new THREE.MeshPhongMaterial({
+  //   color:Colors.red,
+  //   shininess:0,
+  //   specular:0xffffff,
+  //   shading:THREE.FlatShading
+  // });
+  // this.mesh = new THREE.Mesh(geom,mat);
+  // this.mesh.castShadow = true;
+  // this.angle = 0;
+  // this.dist = 0;
 }
 
 EnnemiesHolder = function (){
@@ -600,6 +618,7 @@ EnnemiesHolder.prototype.spawnEnnemies = function(){
     ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 2) * (game.planeAmpHeight-20);
     ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
     ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
+    ennemy.mesh.position.z = (Math.random()-0.5)*200;
 
     this.mesh.add(ennemy.mesh);
     this.ennemiesInUse.push(ennemy);
@@ -609,14 +628,17 @@ EnnemiesHolder.prototype.spawnEnnemies = function(){
 EnnemiesHolder.prototype.rotateEnnemies = function(){
   for (var i=0; i<this.ennemiesInUse.length; i++){
     var ennemy = this.ennemiesInUse[i];
-    ennemy.angle += game.speed*deltaTime*game.ennemiesSpeed;
-
+    
     if (ennemy.angle > Math.PI*2) ennemy.angle -= Math.PI*2;
-
-    ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
-    ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
-    ennemy.mesh.rotation.z += Math.random()*.1;
-    ennemy.mesh.rotation.y += Math.random()*.1;
+    
+    ennemy.mesh.position.y = game.planeDefaultHeight;
+    if(ennemy.mesh.position.x > 20)
+    {
+      ennemy.angle += game.speed*deltaTime*game.ennemiesSpeed;
+      ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
+    }
+    // ennemy.mesh.rotation.z += Math.random()*.1;
+    // ennemy.mesh.rotation.y += Math.random()*.1;
 
     //var globalEnnemyPosition =  ennemy.mesh.localToWorld(new THREE.Vector3());
     var diffPos = airplane.mesh.position.clone().sub(ennemy.mesh.position.clone());
@@ -692,6 +714,10 @@ ParticlesHolder.prototype.spawnParticles = function(pos, density, color, scale){
     particle.explode(pos,color, scale);
   }
 }
+
+// Missile = function(){
+
+// }
 
 Coin = function(){
   var geom = new THREE.TetrahedronGeometry(5,0);
