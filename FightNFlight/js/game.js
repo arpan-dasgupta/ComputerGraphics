@@ -59,6 +59,8 @@ function resetGame(){
           planeCollisionDisplacementZ:0,
           planeCollisionSpeedZs:0,
 
+          missleSpeed:280,
+
           seaRadius:2000,
           seaLength:2000,
           //seaRotationSpeed:0.006,
@@ -554,7 +556,6 @@ Cloud = function(){
     m.receiveShadow = true;
 
   }
-  //*/
 }
 
 Cloud.prototype.rotate = function(){
@@ -570,20 +571,12 @@ Ennemy = function(){
   let enemyLoader = new THREE.GLTFLoader();
   // var xx = 0;
   enemyLoader.load('models/plane1.gltf', function(gltf){
-    // airplane = gltf;
     this.mesh = gltf.scene;
     this.mesh.scale.set(3.5, 3.5, 3.5);
-    // this.mesh.position.y = game.planeDefaultHeight;
-    // this.mesh.rotation.y = 3.141;
-    // console.log(this.mesh.position);
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = true;
     this.angle = 0;
     this.dist = 0;
-    // scene.add(this.mesh);
-    // xx = gltf.scene;
-    // console.log(xx);
-    // this.mesh.scale.set(0.2,0.2,0.2);
   }.bind(this));
   // var geom = new THREE.TetrahedronGeometry(8,2);
   // var mat = new THREE.MeshPhongMaterial({
@@ -616,13 +609,23 @@ EnnemiesHolder.prototype.spawnEnnemies = function(){
 
     ennemy.angle = - (i*0.1);
     ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 2) * (game.planeAmpHeight-20);
-    ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
-    ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
-    ennemy.mesh.position.z = (Math.random()-0.5)*200;
+    if(ennemy.mesh)
+    {
+      ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
+      ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
+      ennemy.mesh.position.z = (Math.random()-0.5)*200;
 
-    this.mesh.add(ennemy.mesh);
+      this.mesh.add(ennemy.mesh);
+    }
     this.ennemiesInUse.push(ennemy);
+
   }
+  // for (var )
+  // {
+  //   ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
+  //   ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
+  //   ennemy.mesh.position.z = (Math.random()-0.5)*200;
+  // }
 }
 
 EnnemiesHolder.prototype.rotateEnnemies = function(){
@@ -715,9 +718,38 @@ ParticlesHolder.prototype.spawnParticles = function(pos, density, color, scale){
   }
 }
 
-// Missile = function(){
+Missile = function(){
+  let enemyLoader = new THREE.GLTFLoader();
+  enemyLoader.load('models/missile.gltf', function(gltf){
+    this.mesh = gltf.scene;
+    this.mesh.scale.set(20, 20, 20);
+    this.mesh.rotation.y = Math.PI/2;
+    this.mesh.castShadow = true;
+    this.mesh.receiveShadow = true;
+    this.mesh.position.x = airplane.mesh.position.x;
+    this.mesh.position.y = airplane.mesh.position.y;
+    this.mesh.position.z = airplane.mesh.position.z;
+    // console.log(pos);
+    scene.add(this.mesh);
+    // this.mesh.
+  }.bind(this));
+  // var geom = new THREE.TetrahedronGeometry(3,0);
+  // var mat = new THREE.MeshPhongMaterial({
+  //   color:0x009999,
+  //   shininess:0,
+  //   specular:0xffffff,
+  //   shading:THREE.FlatShading
+  // });
+  // this.mesh = new THREE.Mesh(geom,mat);
+  // this.mesh.castShadow = true;
+  // this.mesh.receiveShadow = true;
+  // this.mesh.position = pos;
+  // scene.add(this.mesh);
+}
 
-// }
+Missile.prototype.move = function(){
+  this.mesh.position.x += game.speed*deltaTime*(this.type)*game.missleSpeed;
+}
 
 Coin = function(){
   var geom = new THREE.TetrahedronGeometry(5,0);
@@ -800,6 +832,8 @@ CoinsHolder.prototype.rotateCoins = function(){
 // 3D Models
 var sea;
 var airplane;
+var mymissile;
+var enemymissile;
 
 // function loadGLTF() {
 //   let balloonLoader = new THREE.GLTFLoader();
@@ -931,6 +965,7 @@ function loop(){
     updatePlane();
     updateDistance();
     updateEnergy();
+    updateMissiles();
     game.baseSpeed += (game.targetBaseSpeed - game.baseSpeed) * deltaTime * 0.02;
     game.speed = game.baseSpeed * game.planeSpeed;
 
@@ -1010,7 +1045,19 @@ function removeEnergy(){
   game.energy = Math.max(0, game.energy);
 }
 
-
+function updateMissiles(){
+  mymissile.forEach(missile => {
+    if(missile.mesh)
+    {
+      missile.move();
+      console.log("ok");
+    }
+  });
+  enemymissile.forEach(missile => {
+    if(missile.mesh)
+      missile.move();
+  });
+}
 
 function updatePlane(){
   if(!airplane.mesh)
@@ -1065,6 +1112,17 @@ function normalize(v,vmin,vmax,tmin, tmax){
 
 var fieldDistance, energyVal, replayMessage, fieldLevel, levelCircle;
 
+function logKey(e) {
+  var miss = new Missile(airplane.mesh.position);
+  console.log();
+  miss.type = 1;
+  // miss.mesh.position.x = airplane.mesh.position.x;
+  // miss.mesh.position.y = airplane.mesh.position.y;
+  // miss.mesh.position.z = airplane.mesh.position.z;
+  // scene.add(miss.mesh);
+  mymissile.push(miss);
+}
+
 function init(event){
 
   // UI
@@ -1085,11 +1143,15 @@ function init(event){
   createCoins();
   createEnnemies();
   createParticles();
+  mymissile = [];
+  enemymissile = [];
 
   document.addEventListener('mousemove', handleMouseMove, false);
   document.addEventListener('touchmove', handleTouchMove, false);
   document.addEventListener('mouseup', handleMouseUp, false);
   document.addEventListener('touchend', handleTouchEnd, false);
+  // document.addEventListener('keypress', logKey, false);
+  document.onkeypress = logKey;
 
   loop();
 }
