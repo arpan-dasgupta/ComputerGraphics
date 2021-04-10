@@ -78,7 +78,7 @@ function resetGame(){
           coinValue:3,
           coinsSpeed:.5,
           coinLastSpawn:0,
-          distanceForCoinsSpawn:20,
+          distanceForCoinsSpawn:60,
 
           ennemyDistanceTolerance:10,
           ennemyValue:10,
@@ -176,14 +176,15 @@ function handleMouseUp(event){
   if (game.status == "waitingReplay"){
     // resetGame();
     // hideReplay();
-    window.location.reload();
+    // window.location.reload();
+    location.reload(true);
   }
 }
 
 
 function handleTouchEnd(event){
   if (game.status == "waitingReplay"){
-    window.location.reload();
+    location.reload(true);
     // resetGame();
     // hideReplay();
   }
@@ -200,7 +201,7 @@ function createLights() {
   ambientLight = new THREE.AmbientLight(0xdc8874, .5);
   
   shadowLight = new THREE.DirectionalLight(0xffffff, .9);
-  shadowLight.position.set(150, 350, 350);
+  shadowLight.position.set(50, 350, 250);
   shadowLight.castShadow = true;
   shadowLight.shadow.camera.left = -400;
   shadowLight.shadow.camera.right = 400;
@@ -351,6 +352,7 @@ Ennemy = function(){
 
   // console.log(enemyModel);
   this.mesh = enemyModel.clone();
+  this.mesh.rotation.y = Math.PI;
   this.mesh.scale.set(3.5, 3.5, 3.5);
   this.mesh.castShadow = true;
   this.mesh.receiveShadow = true;
@@ -545,6 +547,9 @@ function loadMissileModel()
 {
   let enemyLoader = new THREE.GLTFLoader();
   enemyLoader.load('models/missile.gltf', function(gltf){
+    gltf.scene.traverse( function( node ) {
+      if ( node.isMesh ) { node.castShadow = true; }
+    } );
     missileModel = gltf.scene;
   }.bind(this));
 }
@@ -557,10 +562,13 @@ function loadPlaneModel()
   }.bind(this));
 }
 
-async function loadEnemyModel()
+function loadEnemyModel()
 {
   let enemyLoader = new THREE.GLTFLoader();
-  await enemyLoader.load('models/plane1.gltf', function(gltf){
+  enemyLoader.load('models/enemy.gltf', function(gltf){
+    gltf.scene.traverse( function( node ) {
+      if ( node.isMesh ) { node.castShadow = true; }
+    } );
     enemyModel = gltf.scene;
     // console.log(enemyModel);
     for (var i=0; i<10; i++){
@@ -744,6 +752,9 @@ var enemymissile;
 Airplanen = function(){
   let airplaneLoader = new THREE.GLTFLoader();
   airplaneLoader.load('models/plane1.gltf', function(gltf){
+    gltf.scene.traverse( function( node ) {
+      if ( node.isMesh ) { node.castShadow = true; }
+    } );
     this.mesh = gltf.scene;
     this.mesh.scale.set(3.5, 3.5, 3.5);
     this.mesh.position.y = game.planeDefaultHeight;
@@ -976,6 +987,8 @@ function updatePlane(){
   game.planeCollisionSpeedY += (0-game.planeCollisionSpeedY)*deltaTime * 0.03;
   game.planeCollisionDisplacementY += (0-game.planeCollisionDisplacementY)*deltaTime *0.01;
 
+  airplane.mesh.children[2].children[2].rotation.y += 0.4
+
   // airplane.pilot.updateHairs();
 }
 
@@ -1009,13 +1022,13 @@ function logKey(e) {
   mymissile.push(miss);
 }
 
-async function loadModels(){
-  await loadPlaneModel();
-  await loadMissileModel();
-  await loadEnemyModel();
+function loadModels(){
+  loadPlaneModel();
+  loadMissileModel();
+  loadEnemyModel();
 }
 
-async function init(event){
+function init(event){
 
   // UI
 
@@ -1025,7 +1038,7 @@ async function init(event){
   // fieldLevel = document.getElementById("levelValue");
   // levelCircle = document.getElementById("levelCircleStroke");
 
-  await loadModels();
+  loadModels();
   resetGame();
   createScene();
 
